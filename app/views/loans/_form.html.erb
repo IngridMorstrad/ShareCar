@@ -1,0 +1,20 @@
+<%= form_for(@loan) do |f| %>
+
+  <div class="loanee">
+    <%= f.label :loanee %><br>
+   <%= f.number_field :loanee %>
+
+  </div>
+  
+  <div class="loaner">
+<%= f.label :loaner %><br>
+  <%= f.number_field :loaner %>
+  </div>
+  <div class="amount">
+<%= f.label :amount %><br>
+<%= f.number_field :amount, :step => 0.01 %>
+  </div>
+  <div class="actions">
+  <%= f.submit %>
+  </div>
+<% end %>

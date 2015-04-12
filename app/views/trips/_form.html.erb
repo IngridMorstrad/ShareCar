@@ -1,0 +1,48 @@
+<%= form_for (@trip) do |f| %>
+
+  <div class="distance">
+    <%= f.label :distance %><br>
+   <%= f.number_field :distance %>
+  </div>
+
+  <div class="base_cost">
+    <%= f.label :base_cost %><br>
+   <%= f.number_field :base_cost %>
+  </div>
+
+  <div class="number_of_passengers">
+    <%= f.label :number_of_passengers %><br>
+   <%= f.number_field :number_of_passengers %>
+  </div>
+
+   <div class="car_name">
+    <%= f.label :car_name %><br>
+   <%= f.text_field :car_name %>
+  </div>
+
+    <div class="origin">
+    <%= f.label :origin %><br>
+   <%= f.text_field :origin %>
+  </div>
+
+   <div class="destination">
+    <%= f.label :destination %><br>
+   <%= f.text_field :destination %>
+  </div>
+
+  <div class="end_time">
+       <%= f.label :end_time %><br>
+    <%= f.datetime_field :end_time %>
+  </div>
+ 
+   <div class="start_time">
+    <%= f.label :start_time %><br>
+   <%= f.datetime_field :start_time %>
+   </div> 
+   
+   
+   <div class="actions">
+  <%= f.submit %>
+  </div>
+
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_for(@loan) do |f| %>
+
+  <div class="loanee">
+    <%= f.label :loanee %><br>
+   <%= f.text_field :loanee %>
+
+  </div>
+  
+  <div class="loaner">
+<%= f.label :loaner %><br>
+  <%= f.text_field :loaner %>
+  </div>
+  <div class="amount">
+<%= f.label :amount %><br>
+  <%= f.text_field :amount %>
+  </div>
+  <div class="actions">
+  <%= f.submit %>
+  </div>
+<% end %>
+

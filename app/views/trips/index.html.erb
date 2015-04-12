@@ -1,0 +1,7 @@
+<h1>Trips#index</h1>
+<p>Find me in app/views/trips/index.html.erb</p>
+<% @trips.each do |t| %>
+    <%= "#{t.start_time} #{t.end_time} #{t.distance} #{t.car_name} #{t.base_cost} #{t.number_of_passengers} #{t.origin} #{t.destination} #{t.total_trip_cost}" %>
+    <%= link_to "Add passenger", {:controller => 'trip', :action=> 'increment', :id => t.id} %>
+    <br>
+<% end %>
