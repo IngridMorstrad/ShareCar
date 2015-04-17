@@ -1,3 +1,6 @@
 <h1>Trips#show</h1>
 <p>Find me in app/views/trips/show.html.erb</p>
-<%= "#{@trip.start_time} #{@trip.end_time} #{@trip.distance} " %>
+<% @trips.each do |t| %>
+  <%= "#{t.start_time} #{t.end_time} #{t.distance}" %>
+  <br>
+<% end %>

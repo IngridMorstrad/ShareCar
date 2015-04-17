@@ -1,0 +1,8 @@
+<h1>User#login</h1>
+
+<%= form_for @user, url: "login", html: {method: :post} do |f| %>
+<%= render 'form', f: f %>
+<div class='actions'>
+	<%= f.submit "Sign in" %>
+</div>
+<% end %>
