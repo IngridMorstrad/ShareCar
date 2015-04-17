@@ -1,4 +1,8 @@
 class PagesController < ApplicationController
+  def home
+      @trips = Trip.all
+      @users = User.all
+  end
   def index
       @loans = Loan.all
   end
