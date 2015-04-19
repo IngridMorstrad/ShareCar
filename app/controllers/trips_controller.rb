@@ -9,6 +9,7 @@ class TripsController < ApplicationController
 
   def new
       @trip = Trip.new
+      @cars = Car.all
   end
 
   def create 
