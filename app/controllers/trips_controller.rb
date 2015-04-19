@@ -51,6 +51,6 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-      params.require(:trip).permit(:distance, :number_of_passengers, :car_name,:origin,:destination, :end_time, :start_time,:base_cost)
+      params.require(:trip).permit(:distance, :number_of_passengers, :car_id,:origin,:destination, :end_time, :start_time,:base_cost)
   end
 end
