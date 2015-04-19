@@ -7,7 +7,7 @@
 
   <div class="base_cost">
     <%= f.label :base_cost %><br>
-   <%= f.number_field :base_cost %>
+   <%= f.number_field :base_cost, step: 0.01, min: 0 %>
   </div>
 
   <div class="number_of_passengers">
@@ -16,8 +16,8 @@
   </div>
 
    <div class="car_name">
-    <%= f.label :car_name %><br>
-   <%= f.text_field :car_name %>
+    <%= f.label :car_id %><br>
+       <%= f.select(:car_id, Car.all.collect {|c| [ c.make+" "+c.model+" "+c.year.to_s + " [ID: " + c.id.to_s + "]", c.id ] }, {include_blank: 'None'}) %>
   </div>
 
     <div class="origin">
@@ -30,16 +30,15 @@
    <%= f.text_field :destination %>
   </div>
 
-  <div class="end_time">
-       <%= f.label :end_time %><br>
-    <%= f.datetime_field :end_time %>
-  </div>
- 
    <div class="start_time">
     <%= f.label :start_time %><br>
    <%= f.datetime_field :start_time %>
    </div> 
-   
+
+  <div class="end_time">
+       <%= f.label :end_time %><br>
+    <%= f.datetime_field :end_time %>
+  </div>
    
    <div class="actions">
   <%= f.submit %>
