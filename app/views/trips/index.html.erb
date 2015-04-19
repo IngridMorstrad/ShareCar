@@ -19,7 +19,7 @@
                 <td> <%= "#{t.start_time}" %> </td>
                 <td> <%= "#{t.end_time}" %> </td>
                 <td> <%= "#{t.distance}" %> </td>
-                <% car = Car.where(id: t.id).first %>
+                <% car = Car.find(t.car_id) %>
                 <td>
                     <% if car %>
                     <%= "#{car.make} #{car.model} #{car.year}" %>
@@ -27,11 +27,11 @@
                     <%= "NONE" %>
                     <% end %>
                 </td>
-                <td> <%= "#{t.base_cost}" %> </td>
+                <td> <%= number_to_currency(t.base_cost) %> </td>
                 <td> <%= "#{t.number_of_passengers}" %> </td>
                 <td> <%= "#{t.origin}" %> </td>
                 <td> <%= "#{t.destination}" %> </td>
-                <td> <%= "#{t.total_trip_cost}" %> </td>
+                <td> <%= number_to_currency(t.total_trip_cost) %> </td>
             </tr>
         <% end %>
     </tbody>

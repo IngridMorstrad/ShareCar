@@ -2,17 +2,12 @@
 
   <div class="distance">
     <%= f.label :distance %><br>
-   <%= f.number_field :distance %>
-  </div>
-
-  <div class="base_cost">
-    <%= f.label :base_cost %><br>
-   <%= f.number_field :base_cost, step: 0.01, min: 0 %>
+   <%= f.number_field :distance, step:0.01, min: 0.01 %>
   </div>
 
   <div class="number_of_passengers">
     <%= f.label :number_of_passengers %><br>
-   <%= f.number_field :number_of_passengers %>
+   <%= f.number_field :number_of_passengers, min: 0 %>
   </div>
 
    <div class="car_name">

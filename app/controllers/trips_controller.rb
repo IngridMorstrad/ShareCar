@@ -14,7 +14,17 @@ class TripsController < ApplicationController
 
   def create 
       @trip = Trip.new(trip_params)
-      @trip.total_trip_cost = @trip.base_cost
+      base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
+      if @trip.number_of_passengers == 1
+          @trip.total_trip_cost = base_cost * 1.2
+      elsif @trip.number_of_passengers ==2 or @trip.number_of_passengers == 3
+          @trip.total_trip_cost = base_cost * 1.1
+      elsif @trip.number_of_passengers == 4
+          @trip.total_trip_cost = base_cost * 1.05
+      else
+          @trip.total_trip_cost = base_cost
+      end
+      @trip.base_cost = @trip.total_trip_cost/@trip.number_of_passengers
       if @trip.save
           redirect_to(:action => 'index')
       else
