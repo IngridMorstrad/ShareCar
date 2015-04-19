@@ -1,10 +1,10 @@
 ShareCar::Application.routes.draw do
+  root 'trips#index'
   get "users/home"
   get "users/new"
   post "users/new", to: "users#create"
   get "users/login"
   post "users/login", to: "users#home"
-  root 'pages#home'
   post "trips/new", to: "trips#create"
   resources :pages
   resources :loans
