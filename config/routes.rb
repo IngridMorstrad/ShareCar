@@ -4,26 +4,11 @@ ShareCar::Application.routes.draw do
   post "users/new", to: "users#create"
   get "users/login"
   post "users/login", to: "users#home"
-  get "trips/show"
-  get "trips/new"
-  post "trips/new", to: "trips#create"
-  get "trips/edit"
-  get "trips/delete"
-  get "trips/index"
-  get "loans/index"
-  get "loans/show"
-  get "loans/new"
-  get "loans/edit"
-  get "loans/delete"
-  get "pages/index"
-  get "pages/show"
-  get "pages/new"
-  get "pages/edit"
-  get "pages/delete"
-  get 'pages/home'
   root 'pages#home'
+  post "trips/new", to: "trips#create"
+  resources :pages
   resources :loans
-  #resources :trips
+  resources :trips
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
