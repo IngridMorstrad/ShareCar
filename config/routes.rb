@@ -1,4 +1,10 @@
 ShareCar::Application.routes.draw do
+  get "sessions/new"
+  get "sessions/create"
+  get "sessions/destroy"
+  get "/log-in" => "sessions#new", as: :log_in
+  post "/log-in" => "sessions#create"
+  get "/log-out" => "sessions#destroy", as: :log_out
   get "cars/new"
   get "cars/edit"
   get "cars/delete"
@@ -7,8 +13,6 @@ ShareCar::Application.routes.draw do
   get "users/new"
   post "users/new", to: "users#create"
   post "cars/new", to: "cars#create"
-  get "users/login"
-  post "users/login", to: "users#home"
   post "trips/new", to: "trips#create"
   resources :pages
   resources :loans
