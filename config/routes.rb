@@ -1,8 +1,12 @@
 ShareCar::Application.routes.draw do
+  get "cars/new"
+  get "cars/edit"
+  get "cars/delete"
   root 'trips#index'
   get "users/home"
   get "users/new"
   post "users/new", to: "users#create"
+  post "cars/new", to: "cars#create"
   get "users/login"
   post "users/login", to: "users#home"
   post "trips/new", to: "trips#create"

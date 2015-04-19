@@ -1,0 +1,27 @@
+<%= form_for (@car), url: "new" do |f| %>
+
+  <div class="cost_per_mile">
+    <%= f.label :cost_per_mile %><br>
+   <%= f.number_field :cost_per_mile, step: 0.01 %>
+  </div>
+
+   <div class="make">
+    <%= f.label :make %><br>
+   <%= f.text_field :make %>
+  </div>
+
+    <div class="model">
+    <%= f.label :model %><br>
+   <%= f.text_field :model %>
+  </div>
+
+   <div class="year">
+    <%= f.label :year %><br>
+   <%= f.number_field :year %>
+  </div>
+   
+   <div class="actions">
+  <%= f.submit %>
+  </div>
+
+<% end %>
