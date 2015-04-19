@@ -4,30 +4,19 @@ class UsersController < ApplicationController
   end
 
   def create
-  	@user = User.new(user_params)
-  	@user.created_at = Time.now.inspect
-  	@user.updated_at = Time.now.inspect
+  	@user = User.new(user_create_params)
   	if @user.save
-  		print "WASAAAAAAP"
-  		redirect_to(:action => 'login')
+      flash[:notice] = "Successfully created account!"
+      redirect_to log_in_path
   	else
+      flash[:alert] = "There was a problem in creating your account! Please, Try again."
   		render 'new'
   	end
   end
 
-  def home
-  	@user = User.new(user_params)
-  	if !(User.exists?(:name => @user.name, :email => @user.email))
-  		redirect_to(:action => 'login')
-  	end
-  end
-
-  def login
-  	@user = User.new
-  end
-
   private
-  def user_params
-  	params.require(:user).permit(:name, :email)
+
+  def user_create_params
+  	params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

@@ -1,7 +1,26 @@
-<h1>User#new</h1>
+<h1>Users#new</h1>
 
 <%= form_for @user, url: "new", html: {method: :post} do |f| %>
-<%= render 'form', f: f %>
+<div class='name'>
+	<%= f.label :name %> <br>
+	<%= f.text_field :name %>
+</div>
+<br>
+<div class='email'>
+	<%= f.label :email %> <br>
+	<%= f.text_field :email %>
+</div>
+<br>
+<div class='password'>
+	<%= f.label :password %> <br>
+	<%= f.password_field :password %>
+</div>
+<br>
+<div class='password_confirmation'>
+	<%= f.label :password_confirmation %> <br>
+	<%= f.password_field :password_confirmation %>
+</div>
+<br>
 <div class='actions'>
 	<%= f.submit "Create User" %>
 </div>
