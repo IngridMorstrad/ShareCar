@@ -4,16 +4,16 @@ class CarsController < ApplicationController
   end
   
   def create
-      @car = Car.new
+      @car = Car.new(car_params)
       if @car.save
-          redirect_to(:action => 'edit')
+          redirect_to(:action => 'edit', :id => @car.id)
       else
           render 'new'
       end
   end
 
   def edit
-      #@car = Car.find(params[:id])
+      @car = Car.find(params[:id])
   end
 
   def delete

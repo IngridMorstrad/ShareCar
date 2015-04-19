@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 20150410051313) do
   end
 
   create_table "trips", force: true do |t|
-    t.string   "car_name"
     t.string   "origin"
     t.string   "destination"
+    t.integer  "car_id"
     t.datetime "start_time"
     t.datetime "end_time"
     t.decimal  "distance"
