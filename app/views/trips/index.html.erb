@@ -19,7 +19,14 @@
                 <td> <%= "#{t.start_time}" %> </td>
                 <td> <%= "#{t.end_time}" %> </td>
                 <td> <%= "#{t.distance}" %> </td>
-                <td> <%= "#{t.car_name}" %> </td>
+                <% car = Car.where(id: t.id).first %>
+                <td>
+                    <% if car %>
+                    <%= "#{car.make} #{car.model} #{car.year}" %>
+                    <% else %>
+                    <%= "NONE" %>
+                    <% end %>
+                </td>
                 <td> <%= "#{t.base_cost}" %> </td>
                 <td> <%= "#{t.number_of_passengers}" %> </td>
                 <td> <%= "#{t.origin}" %> </td>
