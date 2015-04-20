@@ -1,4 +1,5 @@
 <h1>Trip List</h1>
+<p> <%= "Hello #{@user.name}. Below are the currently available trips. (Want to sign in as a different user? #{link_to("Log out", log_out_path)})".html_safe %> </p>
 <table class = "table">
     <thead>
         <tr>
@@ -11,6 +12,7 @@
             <th> Origin </th>
             <th> Destination </th>
             <th> Total cost </th>
+            <th> Signup for trip </th>
         </tr>
     </thead>
     <tbody> 
