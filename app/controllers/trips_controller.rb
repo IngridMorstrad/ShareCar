@@ -1,6 +1,11 @@
 class TripsController < ApplicationController
   def index
-      @trips = Trip.all
+      if session[:user_id]
+        @user = User.find(session[:user_id])
+        @trips = Trip.all
+      else
+        redirect_to log_in_path
+      end
   end
 
   def show
