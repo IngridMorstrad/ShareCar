@@ -12,6 +12,8 @@ ShareCar::Application.routes.draw do
   post "/sign-up" => "users#create"
   post "cars/new", to: "cars#create"
   post "trips/new", to: "trips#create"
+  get "trips/increment", as: :increment
+  get "trips/decrement", as: :decrement
   resources :pages
   resources :loans
   resources :trips

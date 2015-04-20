@@ -1,7 +1,6 @@
 class TripsController < ApplicationController
   def index
-      if session[:user_id]
-        @user = User.find(session[:user_id])
+      if current_user
         @trips = Trip.all
       else
         redirect_to log_in_path
@@ -51,13 +50,29 @@ class TripsController < ApplicationController
   end
 
   def increment
-      @trip = Trip.find(params[:id])
-      @trip.number_of_passengers += 1
-      if @trip.update_attributes(trip_params)
-          redirect_to(:action => 'show', :id => @trip.id)
-      else
-          render('index')
-      end
+    @trip = Trip.find(params[:trip][:id])
+    @trip.number_of_passengers += 1
+    #Now adding the record corresponding to (trip_id,user_id) to passengers table
+    @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
+    if @trip.update_attributes(trip_params) && @passenger.save
+      #redirect_to(:action => 'show', :id => @trip.id)
+      redirect_to "/" #We'll change it back to the above once show is ready
+    else
+      redirect_to "/"
+    end
+  end
+
+  def decrement
+    @trip = Trip.find(params[:trip][:id])
+    @trip.number_of_passengers -= 1
+    #Now removing the record corresponding to (trip_id,user_id) from passengers table
+    passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
+    if @trip.update_attributes(trip_params) && passenger.destroy
+      #redirect_to(:action => "show", :id => @trip.id)
+      redirect_to "/" #We'll change it back to above once show is ready
+    else
+      redirect_to "/"
+    end
   end
 
 

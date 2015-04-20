@@ -1,5 +1,5 @@
 <h1>Trip List</h1>
-<p> <%= "Hello #{@user.name}. Below are the currently available trips. (Want to sign in as a different user? #{link_to("Log out", log_out_path)})".html_safe %> </p>
+<p> <%= "Hello #{current_user.name}. Below are the currently available trips. (Want to sign in as a different user? #{link_to("Log out", log_out_path)})".html_safe %> </p>
 <table class = "table">
     <thead>
         <tr>
@@ -34,6 +34,13 @@
                 <td> <%= "#{t.origin}" %> </td>
                 <td> <%= "#{t.destination}" %> </td>
                 <td> <%= number_to_currency(t.total_trip_cost) %> </td>
+                <td>
+                <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
+                <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
+                <% else %>
+                <%= link_to("Join", increment_path(:trip => {:id => t.id})) %>
+                <% end %>
+                </td>
             </tr>
         <% end %>
     </tbody>

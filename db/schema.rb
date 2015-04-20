@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419222731) do
+ActiveRecord::Schema.define(version: 20150420183404) do
 
   create_table "cars", force: true do |t|
     t.string   "make"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20150419222731) do
 
   add_index "owners", ["car_id"], name: "index_owners_on_car_id"
   add_index "owners", ["user_id"], name: "index_owners_on_user_id"
+
+  create_table "passengers", force: true do |t|
+    t.integer  "trip_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "trips", force: true do |t|
     t.string   "origin"
