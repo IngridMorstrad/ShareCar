@@ -1,0 +1,19 @@
+<h1>Owners#new</h1>
+<p>Find me in app/views/owners/new.html.erb</p>
+<%= form_for (@owner), url: "new" do |f| %>
+
+  <div class="owner">
+    <%= f.label :user_id %><br>
+    <%= f.select(:user_id, User.all.collect {|c| [c.name]}) %>
+  </div>
+
+   <div class="car">
+    <%= f.label :car_id %><br>
+    <%= f.select(:car_id, Owner.where(user_id: current_user.id).collect {|o| ["#{Car.find(o.car_id).make} #{Car.find(o.car_id).model} #{Car.find(o.car_id).year}"]}) %>
+  </div>
+  
+   <div class="actions">
+  <%= f.submit %>
+  </div>
+
+<% end %>

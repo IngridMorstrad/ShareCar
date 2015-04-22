@@ -12,7 +12,7 @@
 
    <div class="car_name">
     <%= f.label :car_id %><br>
-       <%= f.select(:car_id, Car.all.collect {|c| [ c.make+" "+c.model+" "+c.year.to_s + " [ID: " + c.id.to_s + "]", c.id ] }, {include_blank: 'None'}) %>
+       <%= f.select(:car_id, Car.all.collect {|c| [ c.make+" "+c.model+" "+c.year.to_s + " [ID: " + c.id.to_s + "]", c.id ] }) %>
   </div>
 
     <div class="origin">

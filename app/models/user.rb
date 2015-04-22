@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+    has_many :owner
 	attr_accessor :password
 	validates_confirmation_of :password
     validates :name,  presence: true, length: { maximum: 50 }

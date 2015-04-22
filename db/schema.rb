@@ -37,9 +37,6 @@ ActiveRecord::Schema.define(version: 20150420183404) do
     t.datetime "updated_at"
   end
 
-  add_index "owners", ["car_id"], name: "index_owners_on_car_id"
-  add_index "owners", ["user_id"], name: "index_owners_on_user_id"
-
   create_table "passengers", force: true do |t|
     t.integer  "trip_id"
     t.integer  "user_id"

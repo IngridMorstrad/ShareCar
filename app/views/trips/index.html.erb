@@ -9,7 +9,7 @@
           |
           <%= link_to "Add Car", :new_car_path %>
           |
-          <%= link_to "Add owner", :edit_owner_path %>
+          <%= link_to "Add owner", :new_owner_path %>
           |
           <%= link_to "Log out", log_out_path %>
         </ul>
@@ -30,16 +30,7 @@
     <table class = "table">
       <thead>
         <tr>
-          <th> Start Time </th>
-          <th> End Time </th>
-          <th> Distance </th>
-          <th> Car </th>
-          <th> Cost per passenger </th>
-          <th> Number of passengers </th>
-          <th> Origin </th>
-          <th> Destination </th>
-          <th> Total cost </th>
-          <th> Signup for trip </th>
+          <%= link_to "Add trip", new_trip_path %>
         </tr>
       </thead>
       <tbody> 

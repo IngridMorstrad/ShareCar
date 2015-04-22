@@ -5,7 +5,8 @@ class CarsController < ApplicationController
   
   def create
       @car = Car.new(car_params)
-      if @car.save
+      @owner = Owner.new(car: @car, user: current_user)
+      if @car.save and @owner.save
           redirect_to(:action => 'edit', :id => @car.id)
       else
           render 'new'
@@ -14,6 +15,11 @@ class CarsController < ApplicationController
 
   def edit
       @car = Car.find(params[:id])
+  end
+
+  def update
+      @car = Car.find(params[:id])
+      @car.save
   end
 
   def delete
