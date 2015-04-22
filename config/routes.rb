@@ -4,9 +4,10 @@ ShareCar::Application.routes.draw do
   get "/log-in" => "sessions#new", as: :log_in
   post "/log-in" => "sessions#create"
   get "/log-out" => "sessions#destroy", as: :log_out
-  get "cars/new"
+  get "cars/new", as: :new_car_path
   get "cars/edit"
   get "cars/delete"
+  get "owners/edit", as: :edit_owner_path
   root 'trips#index'
   get "/sign-up" => "users#new", as: :sign_up
   post "/sign-up" => "users#create"

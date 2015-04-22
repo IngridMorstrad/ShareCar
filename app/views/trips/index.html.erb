@@ -1,47 +1,84 @@
-<h1>Trip List</h1>
-<p> <%= "Hello #{current_user.name}. Below are the currently available trips. (Want to sign in as a different user? #{link_to("Log out", log_out_path)})".html_safe %> </p>
-<table class = "table">
-    <thead>
+<div class="container">
+
+  <h3 class="muted">ShareCar</h3>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <%= link_to "Home", trips_path %>
+          |
+          <%= link_to "Add Car", :new_car_path %>
+          |
+          <%= link_to "Add owner", :edit_owner_path %>
+          |
+          <%= link_to "Log out", log_out_path %>
+        </ul>
+      </div>
+    </div>
+  </div><!-- /.navbar -->
+
+  <!-- Jumbotron -->
+  <div class="jumbotron">
+    <h1>Trips</h1>
+  </div>
+
+  <hr>
+
+  <!-- Example row of columns -->
+  <div class="row-fluid">
+
+    <table class = "table">
+      <thead>
         <tr>
-            <th> Start Time </th>
-            <th> End Time </th>
-            <th> Distance </th>
-            <th> Car </th>
-            <th> Cost per passenger </th>
-            <th> Number of passengers </th>
-            <th> Origin </th>
-            <th> Destination </th>
-            <th> Total cost </th>
-            <th> Signup for trip </th>
+          <th> Start Time </th>
+          <th> End Time </th>
+          <th> Distance </th>
+          <th> Car </th>
+          <th> Cost per passenger </th>
+          <th> Number of passengers </th>
+          <th> Origin </th>
+          <th> Destination </th>
+          <th> Total cost </th>
+          <th> Signup for trip </th>
         </tr>
-    </thead>
-    <tbody> 
+      </thead>
+      <tbody> 
         <% @trips.each do |t| %>
-            <tr>
-                <td> <%= "#{t.start_time}" %> </td>
-                <td> <%= "#{t.end_time}" %> </td>
-                <td> <%= "#{t.distance}" %> </td>
-                <% car = Car.find(t.car_id) %>
-                <td>
-                    <% if car %>
-                    <%= "#{car.make} #{car.model} #{car.year}" %>
-                    <% else %>
-                    <%= "NONE" %>
-                    <% end %>
-                </td>
-                <td> <%= number_to_currency(t.base_cost) %> </td>
-                <td> <%= "#{t.number_of_passengers}" %> </td>
-                <td> <%= "#{t.origin}" %> </td>
-                <td> <%= "#{t.destination}" %> </td>
-                <td> <%= number_to_currency(t.total_trip_cost) %> </td>
-                <td>
-                <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
+          <tr>
+            <td> From: <%= t.origin %> <br>
+                 To: <%= t.destination %> </td>
+            <td> <%= t.start_time.strftime('%d-%m %I:%M') %> </td>
+            <td> <%= t.end_time.strftime('%d-%m %I:%M') %> </td>
+            <td> <%= t.distance %> </td>
+            <!--            <% car = Car.find(t.car_id) %>
+            <td>
+              <% if car %>
+                <%= "#{car.make} #{car.model} #{car.year}" %>
+              <% else %>
+                <%= "NONE" %>
+              <% end %>
+              -->
+            </td>
+            <!--            <td> <%= number_to_currency(t.base_cost) %> </td> -->
+            <!--            <td> <%= "#{t.number_of_passengers}" %> </td> -->
+            <!--            <td> <%= number_to_currency(t.total_trip_cost) %> </td> -->
+            <td>
+              <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
                 <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
-                <% else %>
+              <% else %>
                 <%= link_to("Join", increment_path(:trip => {:id => t.id})) %>
-                <% end %>
-                </td>
-            </tr>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <p>&copy; EE 2015</p>
+  </div>
+
+</div> <!-- /container -->
