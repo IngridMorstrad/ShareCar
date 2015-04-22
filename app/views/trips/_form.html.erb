@@ -12,7 +12,7 @@
 
    <div class="car_name">
     <%= f.label :car_id %><br>
-       <%= f.select(:car_id, Car.all.collect {|c| [ c.make+" "+c.model+" "+c.year.to_s + " [ID: " + c.id.to_s + "]", c.id ] }) %>
+    <%= f.select(:car_id, Owner.where(user_id: current_user.id).collect {|o| [Car.find(o.car_id).make + " " + Car.find(o.car_id).model + " " + Car.find(o.car_id).year.to_s] }) %>
   </div>
 
     <div class="origin">
