@@ -30,6 +30,8 @@ class TripsController < ApplicationController
       end
       @trip.base_cost = @trip.total_trip_cost/@trip.number_of_passengers
       if @trip.save
+          pass = Passenger.new(user: current_user, trip: @trip)
+          pass.save
           redirect_to(:action => 'index')
       else
           render 'new'
@@ -54,9 +56,9 @@ class TripsController < ApplicationController
     @trip.number_of_passengers += 1
     #Now adding the record corresponding to (trip_id,user_id) to passengers table
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
-    if @trip.update_attributes(trip_params) && @passenger.save
+    if @trip.update_attributes(trip_params) and @passenger.save
       #redirect_to(:action => 'show', :id => @trip.id)
-      redirect_to "/" #We'll change it back to the above once show is ready
+      redirect_to "/" #TODO: We'll change it back to the above once show is ready
     else
       redirect_to "/"
     end
@@ -67,9 +69,9 @@ class TripsController < ApplicationController
     @trip.number_of_passengers -= 1
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
-    if @trip.update_attributes(trip_params) && passenger.destroy
+    if @trip.update_attributes(trip_params) and passenger.destroy
       #redirect_to(:action => "show", :id => @trip.id)
-      redirect_to "/" #We'll change it back to above once show is ready
+      redirect_to "/" #TODO: We'll change it back to above once show is ready
     else
       redirect_to "/"
     end

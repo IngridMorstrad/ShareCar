@@ -5,10 +5,11 @@ ShareCar::Application.routes.draw do
   get "/log-in" => "sessions#new", as: :log_in
   post "/log-in" => "sessions#create"
   get "/log-out" => "sessions#destroy", as: :log_out
-  get "cars/new", as: :new_car_path
+  get "cars/new", as: :new_car
   get "cars/edit"
   get "cars/delete"
-  get "owners/new", as: :new_owner_path
+  get "loans/new" => "loans#create_multiple", as: :complete
+  get "owners/new", as: :new_owner
   post "owners/new", to: "owners#create"
   root 'trips#index'
   get "/sign-up" => "users#new", as: :sign_up
@@ -17,7 +18,6 @@ ShareCar::Application.routes.draw do
   post "trips/new", to: "trips#create"
   get "trips/increment", as: :increment
   get "trips/decrement", as: :decrement
-  resources :pages
   resources :loans
   resources :trips
   # The priority is based upon order of creation: first created -> highest priority.

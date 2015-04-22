@@ -1,8 +1,8 @@
 class CreatePassengers < ActiveRecord::Migration
   def change
     create_table :passengers do |t|
-      t.integer :trip_id
-      t.integer :user_id
+      t.references :trip
+      t.references :user
 
       t.timestamps
     end

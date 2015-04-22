@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(version: 20150420183404) do
   end
 
   create_table "loans", force: true do |t|
-    t.integer  "loanee"
-    t.integer  "loaner"
-    t.float    "amount"
+    t.integer  "borrower_id"
+    t.integer  "lender_id"
+    t.decimal  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
