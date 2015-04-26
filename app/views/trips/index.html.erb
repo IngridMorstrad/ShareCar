@@ -50,8 +50,7 @@
               <% end %>
               -->
             </td>
-            <!--            <td> <%= number_to_currency(t.base_cost) %> </td> -->
-            <!--            <td> <%= "#{t.number_of_passengers}" %> </td> -->
+            <!--            <td> <%= number_to_currency(t.new_passenger_cost) %> </td> -->
             <!--            <td> <%= number_to_currency(t.total_trip_cost) %> </td> -->
             <td>
               <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>

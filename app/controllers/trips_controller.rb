@@ -19,19 +19,11 @@ class TripsController < ApplicationController
   def create 
       @trip = Trip.new(trip_params)
       base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
-      if @trip.number_of_passengers == 1
-          @trip.total_trip_cost = base_cost * 1.2
-      elsif @trip.number_of_passengers ==2 or @trip.number_of_passengers == 3
-          @trip.total_trip_cost = base_cost * 1.1
-      elsif @trip.number_of_passengers == 4
-          @trip.total_trip_cost = base_cost * 1.05
-      else
-          @trip.total_trip_cost = base_cost
-      end
-      @trip.base_cost = @trip.total_trip_cost/@trip.number_of_passengers
+      @trip.total_trip_cost = base_cost * 1.2
+      @trip.new_passenger_cost = base_cost * 1.1/2
       if @trip.save
-          pass = Passenger.new(user: current_user, trip: @trip)
-          pass.save
+          passenger = Passenger.new(user: current_user, trip: @trip)
+          passenger.save
           redirect_to(:action => 'index')
       else
           render 'new'
@@ -44,6 +36,20 @@ class TripsController < ApplicationController
   
   def update
       @trip = Trip.find(params[:id])
+      number_of_passengers = Passenger.where(trip_id: @trip.id).count
+      base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
+      if number_of_passengers == 1
+          @trip.total_trip_cost = base_cost * 1.2
+      elsif number_of_passengers == 2 or number_of_passengers == 3
+          @trip.total_trip_cost = base_cost * 1.1
+      elsif number_of_passengers == 4
+          @trip.total_trip_cost = base_cost * 1.05
+      else
+          @trip.total_trip_cost = base_cost
+      end
+      new_passenger_costs = {1 => 1.1, 2 => 1.1, 3 => 1.05, 4 => 1.0}
+      @trip.new_passenger_cost = base_cost * new_passenger_costs[min(4,number_of_passengers)]/(number_of_passengers+1)
+
       if @trip.update_attributes(trip_params)
           redirect_to(:action => 'show', :id => @trip.id)
       else
@@ -53,10 +59,9 @@ class TripsController < ApplicationController
 
   def increment
     @trip = Trip.find(params[:trip][:id])
-    @trip.number_of_passengers += 1
     #Now adding the record corresponding to (trip_id,user_id) to passengers table
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
-    if @trip.update_attributes(trip_params) and @passenger.save
+    if @passenger.save and @trip.update_attributes(trip_params)
       #redirect_to(:action => 'show', :id => @trip.id)
       redirect_to "/" #TODO: We'll change it back to the above once show is ready
     else
@@ -66,10 +71,9 @@ class TripsController < ApplicationController
 
   def decrement
     @trip = Trip.find(params[:trip][:id])
-    @trip.number_of_passengers -= 1
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
-    if @trip.update_attributes(trip_params) and passenger.destroy
+    if passenger.destroy and @trip.update_attributes(trip_params)
       #redirect_to(:action => "show", :id => @trip.id)
       redirect_to "/" #TODO: We'll change it back to above once show is ready
     else
@@ -83,6 +87,6 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-      params.require(:trip).permit(:distance, :number_of_passengers, :car_id,:origin,:destination, :end_time, :start_time,:base_cost)
+      params.require(:trip).permit(:distance, :car_id, :origin, :destination, :end_time, :start_time, :new_passenger_cost)
   end
 end

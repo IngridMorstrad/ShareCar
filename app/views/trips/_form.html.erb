@@ -5,14 +5,9 @@
    <%= f.number_field :distance, step:0.01, min: 0.01 %>
   </div>
 
-  <div class="number_of_passengers">
-    <%= f.label :number_of_passengers %><br>
-   <%= f.number_field :number_of_passengers, min: 0 %>
-  </div>
-
    <div class="car_name">
     <%= f.label :car_id %><br>
-    <%= f.select(:car_id, Owner.where(user_id: current_user.id).collect {|o| [Car.find(o.car_id).make + " " + Car.find(o.car_id).model + " " + Car.find(o.car_id).year.to_s] }) %>
+    <%= f.select(:car_id, Owner.where(user_id: current_user.id).collect {|o| [Car.find(o.car_id).make + " " + Car.find(o.car_id).model + " " + Car.find(o.car_id).year.to_s, o.car_id] }) %>
   </div>
 
     <div class="origin">

@@ -4,8 +4,8 @@ class CreateTrips < ActiveRecord::Migration
         t.string :origin, :destination
         t.references :car, foreign_key: :car
         t.datetime :start_time, :end_time
-        t.decimal :distance, :base_cost, :total_trip_cost
-        t.integer :number_of_passengers
+        t.decimal :distance, :new_passenger_cost, :total_trip_cost
+        t.boolean :completed
       t.timestamps
     end
   end
