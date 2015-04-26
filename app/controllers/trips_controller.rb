@@ -21,6 +21,7 @@ class TripsController < ApplicationController
       base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
       @trip.total_trip_cost = base_cost * 1.2
       @trip.new_passenger_cost = base_cost * 1.1/2
+      @trip.completed = false
       if @trip.save
           passenger = Passenger.new(user: current_user, trip: @trip)
           passenger.save
@@ -57,6 +58,8 @@ class TripsController < ApplicationController
       end
   end
 
+  ## TODO: Change name to something more meaningful
+  ## TODO: If possible refactor this & decrement into one function
   def increment
     @trip = Trip.find(params[:trip][:id])
     #Now adding the record corresponding to (trip_id,user_id) to passengers table

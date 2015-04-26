@@ -32,6 +32,8 @@ class LoansController < ApplicationController
 
   def create_multiple
       @trip = Trip.find(params[:trip_id])
+      @trip.completed = true
+      @trip.save
       passengers = Passenger.where(trip_id: @trip.id).collect {|p| User.find(p.user_id)}
       owners = Owner.where(car_id: @trip.car_id).collect {|o| User.find(o.user_id)}
       num_passengers = passengers.length

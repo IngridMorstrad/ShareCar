@@ -35,34 +35,36 @@
       </thead>
       <tbody> 
         <% @trips.each do |t| %>
-          <tr>
-            <td> From: <%= t.origin %> <br>
-                 To: <%= t.destination %> </td>
-            <td> <%= t.start_time.strftime('%d-%m %I:%M') %> </td>
-            <td> <%= t.end_time.strftime('%d-%m %I:%M') %> </td>
-            <td> <%= t.distance %> </td>
-            <!--            <% car = Car.find(t.car_id) %>
-            <td>
-              <% if car %>
-                <%= "#{car.make} #{car.model} #{car.year}" %>
-              <% else %>
-                <%= "NONE" %>
-              <% end %>
-              -->
-            </td>
-            <!--            <td> <%= number_to_currency(t.new_passenger_cost) %> </td> -->
-            <!--            <td> <%= number_to_currency(t.total_trip_cost) %> </td> -->
-            <td>
-              <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
-              <% else %>
-                <%= link_to("Join", increment_path(:trip => {:id => t.id})) %>
-              <% end %>
-            </td>
-            <td>
+          <% if not t.completed %>
+            <tr>
+              <td> From: <%= t.origin %> <br>
+                To: <%= t.destination %> </td>
+              <td> <%= t.start_time.strftime('%d-%m %I:%M') %> </td>
+              <td> <%= t.end_time.strftime('%d-%m %I:%M') %> </td>
+              <td> <%= t.distance %> </td>
+              <!--            <% car = Car.find(t.car_id) %>
+              <td>
+                <% if car %>
+                  <%= "#{car.make} #{car.model} #{car.year}" %>
+                <% else %>
+                  <%= "NONE" %>
+                <% end %>
+                -->
+              </td>
+              <!--            <td> <%= number_to_currency(t.new_passenger_cost) %> </td> -->
+              <!--            <td> <%= number_to_currency(t.total_trip_cost) %> </td> -->
+              <td>
+                <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
+                  <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
+                <% else %>
+                  <%= link_to("Join", increment_path(:trip => {:id => t.id})) %>
+                <% end %>
+              </td>
+              <td>
                 <%= link_to "Complete", complete_path({:trip_id => t.id}) %>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
