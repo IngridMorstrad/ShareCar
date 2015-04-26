@@ -1,5 +1,4 @@
 ShareCar::Application.routes.draw do
-  get "owners/new"
   get "sessions/new"
   get "sessions/destroy"
   get "/log-in" => "sessions#new", as: :log_in
@@ -9,6 +8,7 @@ ShareCar::Application.routes.draw do
   get "cars/edit"
   get "cars/delete"
   get "loans/new" => "loans#create_multiple", as: :complete
+  get "loans/index" => "loans#index"
   get "owners/new", as: :new_owner
   post "owners/new", to: "owners#create"
   root 'trips#index'

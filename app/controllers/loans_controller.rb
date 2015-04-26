@@ -1,6 +1,26 @@
 class LoansController < ApplicationController
   def index
-      @loans = Loan.all
+      @loaned = Loan.where(borrower_id: current_user.id)
+      @borrowed = Loan.where(lender_id: current_user.id)
+      @lgroup = @loaned.group(:lender_id).sum(:amount)
+      @bgroup = @borrowed.group(:borrower_id).sum(:amount)
+      # TODO: Confirm if deleting a key while iterating is safe
+      @bgroup.each do |k,v|
+          if @lgroup.has_key? k
+              if v > @lgroup[k]
+                  # Adjust the borrowed amount since a smaller amount was "lent"
+                  @bgroup[k] -= @lgroup[k]
+                  @lgroup.delete(k)
+              elsif v < @lgroup[k]
+                  @lgroup[k] -= @bgroup[k]
+                  @bgroup.delete(k)
+              else
+                  # Equal amount borrowed and lent
+                  @bgroup.delete(k)
+                  @lgroup.delete(k)
+              end
+          end
+      end
   end
 
   def show

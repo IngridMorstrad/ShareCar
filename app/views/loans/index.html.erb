@@ -1,6 +1,18 @@
 <h1>Loans#index</h1>
 <p>Find me in app/views/loans/index.html.erb</p>
-<% @loans.each do |l| %>
-    <%= "#{l.loanee} owes #{l.loaner} #{l.amount}" %>
+<% if @bgroup.count > 0 %>
+You owe
+<br>
+<% end %>
+<% @bgroup.each do |k,v| %>
+    <%= "#{User.find(k).name} $#{v}" %>
+    <br>
+<% end %>
+<% if @lgroup.count > 0 %>
+You lent
+<br>
+<% end %>
+<% @lgroup.each do |k,v| %>
+    <%= "#{User.find(k).name} $#{v}" %>
     <br>
 <% end %>
