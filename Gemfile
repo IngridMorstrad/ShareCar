@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '1.3.10'
+gem 'sqlite3'
 
 # Use bootstrap-sass for design
 gem 'bootstrap-sass', '~> 3.3.4'
@@ -44,6 +44,7 @@ group :production do
     gem 'mysql'
 end
 
+gem 'thin'
 # Use unicorn as the app server
 # gem 'unicorn'
 
