@@ -3,10 +3,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-group :development, :test do
-    # Use sqlite3 as the database for Active Record
-    gem 'sqlite3'
-end
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
 
 # Use bootstrap-sass for design
 gem 'bootstrap-sass', '~> 3.3.4'
@@ -42,7 +40,9 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.5'
 
-gem 'mysql'
+group :production do
+    gem 'mysql'
+end
 
 gem 'thin'
 # Use unicorn as the app server
