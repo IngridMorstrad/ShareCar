@@ -54,10 +54,14 @@
               <!--            <td> <%= number_to_currency(t.new_passenger_cost) %> </td> -->
               <!--            <td> <%= number_to_currency(t.total_trip_cost) %> </td> -->
               <td>
-                <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                  <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
-                <% else %>
-                  <%= link_to("Join", increment_path(:trip => {:id => t.id})) %>
+                <% if not Trip.find(t.id).completed %>
+                  <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
+                    <% if Passenger.where(trip_id: t.id, user_id: current_user.id).count > 1 %>
+                      <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
+                    <% end %>
+                  <% elsif Passenger.where(trip_id: t.id, user_id: current_user.id).count < Car.find(t.car_id).seats %>
+                    <%= link_to("Join", increment_path(:trip => {:id => t.id})) %>
+                  <% end %>
                 <% end %>
               </td>
               <td>
