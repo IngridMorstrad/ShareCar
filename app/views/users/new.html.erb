@@ -1,6 +1,18 @@
-<h1>Users#new</h1>
+<h1>Sign up</h1>
 
 <%= form_for @user, url: sign_up_path do |f| %>
+  <% if @user.errors.any? %>
+<div id="error_explanation">
+    <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+ 
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+    
 <div class='name'>
 	<%= f.label :name %> <br>
 	<%= f.text_field :name %>
