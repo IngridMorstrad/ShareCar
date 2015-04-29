@@ -38,7 +38,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.5'
+gem 'bcrypt-ruby', '~> 3.1.5', :require => "bcrypt"
 
 group :production do
     gem 'mysql'
