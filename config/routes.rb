@@ -12,6 +12,7 @@ ShareCar::Application.routes.draw do
   get "owners/new", as: :new_owner
   post "owners/new", to: "owners#create"
   root 'trips#index'
+  get "trips/edit"
   get "/sign-up" => "users#new", as: :sign_up
   post "/sign-up" => "users#create"
   post "cars/new", to: "cars#create"

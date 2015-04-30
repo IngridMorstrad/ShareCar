@@ -1,61 +1,61 @@
 class TripsController < ApplicationController
+  before_action :is_user, only: [:new, :create, :show, :edit, :update, :increment, :decrement, :delete]
+  before_action :is_passenger, only: [:show, :decrement, :edit, :update, :delete]
+  before_action :is_owner, only: [:edit, :update, :delete]
+
   def index
-      if current_user
-        @trips = Trip.all
-      else
-        redirect_to log_in_path
-      end
+    @trips = Trip.all
   end
 
   def show
-      @trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:id])
   end
 
   def new
-      @trip = Trip.new
-      @cars = Car.all
+    @trip = Trip.new
+    @cars = Car.all
   end
 
   def create 
-      @trip = Trip.new(trip_params)
-      base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
-      @trip.total_trip_cost = base_cost * 1.2
-      @trip.new_passenger_cost = base_cost * 1.1/2
-      @trip.completed = false
-      if @trip.save
-          passenger = Passenger.new(user: current_user, trip: @trip)
-          passenger.save
-          redirect_to(:action => 'index')
-      else
-          render 'new'
-      end
+    @trip = Trip.new(trip_params)
+    base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
+    @trip.total_trip_cost = base_cost * 1.2
+    @trip.new_passenger_cost = base_cost * 1.1/2
+    @trip.completed = false
+    if @trip.save
+      passenger = Passenger.new(user: current_user, trip: @trip)
+      passenger.save
+      redirect_to(:action => 'index')
+    else
+      render 'new'
+    end
   end
 
   def edit
-      @trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:id])
   end
-  
-  def update
-      @trip = Trip.find(params[:id])
-      number_of_passengers = Passenger.where(trip_id: @trip.id).count
-      base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
-      if number_of_passengers == 1
-          @trip.total_trip_cost = base_cost * 1.2
-      elsif number_of_passengers == 2 or number_of_passengers == 3
-          @trip.total_trip_cost = base_cost * 1.1
-      elsif number_of_passengers == 4
-          @trip.total_trip_cost = base_cost * 1.05
-      else
-          @trip.total_trip_cost = base_cost
-      end
-      new_passenger_costs = {1 => 1.1, 2 => 1.1, 3 => 1.05, 4 => 1.0}
-      @trip.new_passenger_cost = base_cost * new_passenger_costs[min(4,number_of_passengers)]/(number_of_passengers+1)
 
-      if @trip.update_attributes(trip_params)
-          redirect_to(:action => 'show', :id => @trip.id)
-      else
-          render('index')
-      end
+  def update
+    @trip = Trip.find(params[:id])
+    number_of_passengers = Passenger.where(trip_id: @trip.id).count
+    base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
+    if number_of_passengers == 1
+      @trip.total_trip_cost = base_cost * 1.2
+    elsif number_of_passengers == 2 or number_of_passengers == 3
+      @trip.total_trip_cost = base_cost * 1.1
+    elsif number_of_passengers == 4
+      @trip.total_trip_cost = base_cost * 1.05
+    else
+      @trip.total_trip_cost = base_cost
+    end
+    new_passenger_costs = {1 => 1.1, 2 => 1.1, 3 => 1.05, 4 => 1.0}
+    @trip.new_passenger_cost = base_cost * new_passenger_costs[min(4,number_of_passengers)]/(number_of_passengers+1)
+
+    if @trip.update_attributes(trip_params)
+      redirect_to(:action => 'show', :id => @trip.id)
+    else
+      render('index')
+    end
   end
 
   ## TODO: Change name to something more meaningful
@@ -90,6 +90,27 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-      params.require(:trip).permit(:distance, :car_id, :origin, :destination, :end_time, :start_time, :new_passenger_cost)
+    params.require(:trip).permit(:distance, :car_id, :origin, :destination, :end_time, :start_time, :new_passenger_cost)
+  end
+
+  def is_user
+    unless current_user
+      flash[:notice] = "You aren't logged in"
+      redirect_to log_in_path
+    end
+  end
+
+  def is_passenger
+    unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
+      flash[:notice] = "You aren't on that trip"
+      redirect_to(root_url)
+    end
+  end
+
+  def is_owner
+    unless Owner.where(id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
+      flash[:notice] = "You don't own that trip"
+      redirect_to(root_url)
+    end
   end
 end
