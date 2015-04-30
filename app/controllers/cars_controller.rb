@@ -1,4 +1,7 @@
 class CarsController < ApplicationController
+  before_action :owns_car, only: [:edit, :update, :destroy]
+  before_action :is_user, only: [:new, :create]
+
   def new
       @car = Car.new
   end
@@ -7,7 +10,7 @@ class CarsController < ApplicationController
       @car = Car.new(car_params)
       @owner = Owner.new(car: @car, user: current_user)
       if @car.save and @owner.save
-          redirect_to(:action => 'edit', :id => @car.id)
+          redirect_to root_path
       else
           render 'new'
       end
@@ -29,4 +32,13 @@ class CarsController < ApplicationController
   def car_params
       params.require(:car).permit(:make, :model, :year, :cost_per_mile, :seats)
   end
+
+  def owns_car
+    redirect_to(root_url) unless Owner.where(car_id: params[:id], user_id: current_user.id).present?
+  end
+
+  def is_user
+    redirect_to(root_url) unless current_user
+  end
+
 end

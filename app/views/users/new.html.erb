@@ -2,38 +2,38 @@
 
 <%= form_for @user, url: sign_up_path do |f| %>
   <% if @user.errors.any? %>
-<div id="error_explanation">
-    <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
- 
-    <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
+    <div id="error_explanation">
+      <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='name'>
+    <%= f.label :name %> <br>
+    <%= f.text_field :name %>
   </div>
-<% end %>
-    
-<div class='name'>
-	<%= f.label :name %> <br>
-	<%= f.text_field :name %>
-</div>
-<br>
-<div class='email'>
-	<%= f.label :email %> <br>
-	<%= f.text_field :email %>
-</div>
-<br>
-<div class='password'>
-	<%= f.label :password %> <br>
-	<%= f.password_field :password %>
-</div>
-<br>
-<div class='password_confirmation'>
-	<%= f.label :password_confirmation %> <br>
-	<%= f.password_field :password_confirmation %>
-</div>
-<br>
-<div class='actions'>
-	<%= f.submit "Create User" %>
-</div>
+  <br>
+  <div class='email'>
+    <%= f.label :email %> <br>
+    <%= f.text_field :email %>
+  </div>
+  <br>
+  <div class='password'>
+    <%= f.label :password %> <br>
+    <%= f.password_field :password %>
+  </div>
+  <br>
+  <div class='password_confirmation'>
+    <%= f.label :password_confirmation %> <br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <br>
+  <div class='actions'>
+    <%= f.submit "Create User" %>
+  </div>
 <% end %>

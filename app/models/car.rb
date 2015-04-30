@@ -3,5 +3,6 @@ class Car < ActiveRecord::Base
     has_many :owner
     validates :make, :model, :year, :seats, :cost_per_mile, presence: true
     validates :cost_per_mile, numericality: {greater_than: 0}
-    validates :seats, numericality: {only_integer: true}
+    validates :seats, numericality: {only_integer: true, greater_than: 0}
+    validates :year, numericality: {only_integer: true, greater_than: 1900}
 end

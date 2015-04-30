@@ -44,4 +44,10 @@ class CarTest < ActiveSupport::TestCase
     @car.cost_per_mile = nil
     assert_not @car.valid?
   end
+
+  test "year should be a number" do
+    @car.year = "apple"
+    assert_not @car.valid?
+  end
+
 end
