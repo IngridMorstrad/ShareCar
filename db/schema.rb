@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150420183404) do
   create_table "loans", force: true do |t|
     t.integer  "borrower_id"
     t.integer  "lender_id"
+    t.integer  "trip_id"
     t.decimal  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"

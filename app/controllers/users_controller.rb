@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = "Successfully created account!"
       session[:user_id] = @user.id
-      redirect_to "/"
+      redirect_to root_path
     else
       flash[:alert] = "There was a problem in creating your account! Please, Try again."
       render 'new'
@@ -17,6 +17,6 @@ class UsersController < ApplicationController
 
   private
   def user_create_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

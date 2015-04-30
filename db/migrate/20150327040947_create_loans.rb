@@ -3,6 +3,7 @@ class CreateLoans < ActiveRecord::Migration
     create_table :loans do |t|
         t.references :borrower
         t.references :lender
+        t.references :trip
         t.decimal :amount
       t.timestamps
     end

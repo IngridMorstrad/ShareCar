@@ -42,7 +42,7 @@ class LoansController < ApplicationController
       owners.each do |o| 
           passengers.each do |p|
               if (p != o)
-                  Loan.create(borrower: p, lender: o, amount: cost/(num_passengers*num_owners)) 
+                  Loan.create(borrower: p, lender: o, trip: @trip, amount: cost/(num_passengers*num_owners)) 
               end
           end
       end

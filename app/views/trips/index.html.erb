@@ -56,7 +56,7 @@
               <td>
                 <% if not Trip.find(t.id).completed %>
                   <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                    <% if Passenger.where(trip_id: t.id, user_id: current_user.id).count > 1 %>
+                    <% if Passenger.where(trip_id: t.id).count > 1 %>
                       <%= link_to("Leave", decrement_path(:trip => {:id => t.id})) %>
                     <% end %>
                   <% elsif Passenger.where(trip_id: t.id, user_id: current_user.id).count < Car.find(t.car_id).seats %>
@@ -65,7 +65,9 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to "Complete", complete_path({:trip_id => t.id}) %>
+                <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
+                  <%= link_to "Complete", complete_path({:trip_id => t.id}) %>
+                <% end %>
               </td>
             </tr>
           <% end %>
