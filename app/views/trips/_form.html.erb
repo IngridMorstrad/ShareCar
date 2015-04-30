@@ -1,48 +1,52 @@
-<%= form_for (@trip), url: "new" do |f| %>
-  <% if @trip.errors.any? %>
-    <div id="error_explanation">
-      <h4><%= pluralize(@trip.errors.count, "error") %> occurred:</h4>
+<div class="row-fluid">
+  <div class="span4 well">
+    <%= form_for (@trip), url: "new" do |f| %>
+      <% if @trip.errors.any? %>
+        <div id="error_explanation">
+          <h4><%= pluralize(@trip.errors.count, "error") %> occurred:</h4>
 
-      <ul>
-        <% @trip.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% @trip.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="distance">
-    <%= f.label :distance %><br>
-   <%= f.number_field :distance, step:0.01, min: 0.01 %>
+      <div class="distance">
+        <%= f.label :distance %><br>
+        <%= f.number_field :distance, step:0.01, min: 0.01 %>
+      </div>
+
+      <div class="car_name">
+        <%= f.label :car_id %><br>
+        <%= f.select(:car_id, Owner.where(user_id: current_user.id).collect {|o| [Car.find(o.car_id).make + " " + Car.find(o.car_id).model + " " + Car.find(o.car_id).year.to_s, o.car_id] }) %>
+      </div>
+
+      <div class="origin">
+        <%= f.label :origin %><br>
+        <%= f.text_field :origin %>
+      </div>
+
+      <div class="destination">
+        <%= f.label :destination %><br>
+        <%= f.text_field :destination %>
+      </div>
+
+      <div class="start_time">
+        <%= f.label :start_time %><br>
+        <%= f.datetime_field :start_time %>
+      </div> 
+
+      <div class="end_time">
+        <%= f.label :end_time %><br>
+        <%= f.datetime_field :end_time %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+
+    <% end %>
   </div>
-
-   <div class="car_name">
-    <%= f.label :car_id %><br>
-    <%= f.select(:car_id, Owner.where(user_id: current_user.id).collect {|o| [Car.find(o.car_id).make + " " + Car.find(o.car_id).model + " " + Car.find(o.car_id).year.to_s, o.car_id] }) %>
-  </div>
-
-    <div class="origin">
-    <%= f.label :origin %><br>
-   <%= f.text_field :origin %>
-  </div>
-
-   <div class="destination">
-    <%= f.label :destination %><br>
-   <%= f.text_field :destination %>
-  </div>
-
-   <div class="start_time">
-    <%= f.label :start_time %><br>
-   <%= f.datetime_field :start_time %>
-   </div> 
-
-  <div class="end_time">
-       <%= f.label :end_time %><br>
-    <%= f.datetime_field :end_time %>
-  </div>
-   
-   <div class="actions">
-  <%= f.submit %>
-  </div>
-
-<% end %>
+</div>
