@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :is_user, only: [:new, :create, :show, :edit, :update, :increment, :decrement, :delete]
+  before_action :is_user, only: [:new, :create, :show, :edit, :update, :increment, :decrement, :delete, :index]
   before_action :is_passenger, only: [:show, :decrement, :edit, :update, :delete]
   before_action :is_owner, only: [:edit, :update, :delete]
 
