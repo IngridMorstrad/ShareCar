@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
       else
         cookies[:auth_token] = user.auth_token
       end
-  		redirect_to root_path, :notice => "Logged in!"
+      flash[:success] = "Welcome #{current_user.name}!"
+  		redirect_to root_path
   	else
   		flash[:alert] = "There was a problem logging you in"
   		redirect_to log_in_path

@@ -10,3 +10,8 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #696969;
+    color: #FFFFFF;
+}

@@ -1,5 +1,18 @@
-<h1>Owners#new</h1>
-<p>Find me in app/views/owners/new.html.erb</p>
+<h1>Owners</h1>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav" role="navigation">
+        <li><%= link_to "Home", trips_path %></li>
+        <li><%= link_to "Add Car", :new_car %></li>
+        <li><%= link_to "Add owner", :new_owner %></li>
+        <li><%= link_to "Log out", log_out_path %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <%= form_for (@owner), url: "new" do |f| %>
 
   <div class="owner">
