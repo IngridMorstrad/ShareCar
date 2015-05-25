@@ -1,23 +1,26 @@
-<div class="container">
+<div id="main_container" class="container">
 
-  User: <%= current_user.name %>
-  <p> <%= flash[:notice] %>
-  <h3 class="muted">ShareCar</h3>
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <ul class="nav">
-          <%= link_to "Home", trips_path %>
-          |
-          <%= link_to "Add Car", :new_car %>
-          |
-          <%= link_to "Add owner", :new_owner %>
-          |
-          <%= link_to "Log out", log_out_path %>
-        </ul>
-      </div>
+  <% if flash[:success] %>
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= flash[:success] %>
     </div>
-  </div><!-- /.navbar -->
+  <% end %>
+  <h3 class="muted">ShareCar</h3>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav" role="navigation">
+            <li><%= link_to "Home", trips_path %></li>
+            <li><%= link_to "Add Car", :new_car %></li>
+            <li><%= link_to "Add owner", :new_owner %></li>
+            <li><%= link_to "Log out", log_out_path %></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  <br>
 
   <!-- Jumbotron -->
   <div class="jumbotron">
@@ -34,6 +37,18 @@
         <tr>
           <%= link_to "Add trip", new_trip_path %>
         </tr>
+        <th>
+          Origin/Destination
+        </th>
+        <th>
+          Start Time
+        </th>
+        <th>
+          End Time
+        </th>
+        <th>
+          Distance
+        </th>
       </thead>
       <tbody> 
         <% @trips.each do |t| %>

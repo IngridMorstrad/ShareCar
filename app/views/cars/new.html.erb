@@ -1,2 +1,16 @@
 <h1>Add car</h1>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav" role="navigation">
+        <li><%= link_to "Home", trips_path %></li>
+        <li><%= link_to "Add Car", :new_car %></li>
+        <li><%= link_to "Add owner", :new_owner %></li>
+        <li><%= link_to "Log out", log_out_path %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <%= render 'form' %>

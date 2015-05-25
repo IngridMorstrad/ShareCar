@@ -1,4 +1,5 @@
 ShareCar::Application.routes.draw do
+  get "password_resets/new"
   get "sessions/new"
   get "sessions/destroy"
   get "/log-in" => "sessions#new", as: :log_in
@@ -21,6 +22,7 @@ ShareCar::Application.routes.draw do
   get "trips/decrement", as: :decrement
   resources :loans
   resources :trips
+  resources :password_resets
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

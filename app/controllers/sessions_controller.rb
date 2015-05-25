@@ -3,10 +3,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-  	@user = User.authenticate(params[:email], params[:password])
-  	if @user
-  		flash[:notice] = "You've been logged in"
-  		session[:user_id] = @user.id
+    user = User.find_by_email(params[:email])
+  	if user and User.authenticate(params[:email],params[:password])
+      if params[:remember_me]
+        cookies.permanent[:auth_token] = user.auth_token
+      else
+        cookies[:auth_token] = user.auth_token
+      end
+      flash[:success] = "Welcome #{current_user.name}!"
   		redirect_to root_path
   	else
   		flash[:alert] = "There was a problem logging you in"
@@ -15,9 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-  	session[:user_id] = nil
-    flash[:alert]=""
-  	flash[:notice] = "You've been logged out successfully"
-  	redirect_to log_in_path
+    cookies.delete(:auth_token)
+  	redirect_to log_in_path, :notice => "Logged out!"
   end
 end
