@@ -6,9 +6,6 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# Use bootstrap-sass for design
-gem 'bootstrap-sass', '~> 3.3.4'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -21,10 +18,17 @@ gem 'coffee-script-source', '1.8.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+gem 'jquery-easing-rails'
+
+# Use bootstrap-sass for design
+gem 'bootstrap-sass', '~> 3.3.4'
+
+gem 'font-awesome-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
