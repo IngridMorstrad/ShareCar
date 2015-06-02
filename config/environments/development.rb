@@ -19,8 +19,8 @@ ShareCar::Application.configure do
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'localhost',
-    user_name: '<gmail user_name>',
-    password: '<gmail password>',
+    user_name: 'sharecar.help',
+    password: '2$!3414351#1aEtRWa-Pwf29^$2!3',
     authentication: 'plain',
     enable_starttls_auto: true
   }
