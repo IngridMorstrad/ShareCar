@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ShareCar</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<title>ShareCar</title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= yield %>
+  <!-- Footer -->
+  <hr>
+  <footer>
+      <div class="container text-center">
+          <p>Copyright &copy; ShareCar 2015</p>
+      </div>
+  </footer>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 </body>
 </html>

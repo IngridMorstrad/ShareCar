@@ -1,48 +1,47 @@
 <div class="row-fluid">
   <div class="span4 well">
+    <div class="form">
+      <%= form_for (@car), url: "new" do |f| %>
+        <% if @car.errors.any? %>
+          <div id="error_explanation">
+            <h4><%= pluralize(@car.errors.count, "error") %> occurred:</h4>
 
-    <%= form_for (@car), url: "new" do |f| %>
-      <% if @car.errors.any? %>
-        <div id="error_explanation">
-          <h4><%= pluralize(@car.errors.count, "error") %> occurred:</h4>
+            <ul>
+              <% @car.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-          <ul>
-            <% @car.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
+        <div class="form-group">
+          <%= f.label :cost_per_mile %><br>
+          <%= f.number_field :cost_per_mile, step: 0.0001 %>
         </div>
+
+        <div class="form-group">
+          <%= f.label :make %><br>
+          <%= f.text_field :make %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :model %><br>
+          <%= f.text_field :model %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :year %><br>
+          <%= f.number_field :year %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :seats %><br>
+          <%= f.number_field :seats, min: 1 %>
+        </div>
+        
+        <%= f.submit options={class: "btn btn-default"} %>
+
       <% end %>
-
-      <div class="cost_per_mile">
-        <%= f.label :cost_per_mile %><br>
-        <%= f.number_field :cost_per_mile, step: 0.0001 %>
-      </div>
-
-      <div class="make">
-        <%= f.label :make %><br>
-        <%= f.text_field :make %>
-      </div>
-
-      <div class="model">
-        <%= f.label :model %><br>
-        <%= f.text_field :model %>
-      </div>
-
-      <div class="year">
-        <%= f.label :year %><br>
-        <%= f.number_field :year %>
-      </div>
-
-      <div class="seats">
-        <%= f.label :seats %><br>
-        <%= f.number_field :seats, min: 1 %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-
-    <% end %>
+    </div>
   </div>
 </div>
