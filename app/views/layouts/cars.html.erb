@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ShareCar-Cars</title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "navbar-fixed-top" %>
+  <%= stylesheet_link_tag "cars" %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="page-top">
+  <%= yield %>
+  <!-- Footer -->
+  <hr>
+  <footer>
+      <div class="container text-center">
+          <p>Copyright &copy; ShareCar 2015</p>
+      </div>
+  </footer>
+  <%= javascript_include_tag "cars", "data-turbolinks-track" => true %>
+</body>
+</html>
