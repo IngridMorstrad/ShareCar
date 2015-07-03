@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.welcome_email(@user).deliver
       flash[:notice] = "Successfully created account!"
-      redirect_to root_path
+      redirect_to log_in_path
     else
       flash[:alert] = "There was a problem in creating your account! Please, Try again."
       render 'new'
