@@ -1,28 +1,19 @@
 ShareCar::Application.routes.draw do
   root 'main#index'
-  post "/", to: "sessions#create"
   get "main/index", as: :welcome
-  post "main/index", to: "sessions#create"
-  get "password_resets/new"
-  get "sessions/new"
-  get "sessions/destroy"
-  get "/log-in" => "sessions#new", as: :log_in
-  get "/log-out" => "sessions#destroy", as: :log_out
-  get "cars/new", as: :new_car
-  get "cars/edit"
-  get "cars/delete"
-  get "loans/new" => "loans#create_multiple", as: :complete
-  get "loans/index" => "loans#index"
-  get "owners/new", as: :new_owner
-  post "owners/new", to: "owners#create"
-  get "trips/edit"
-  get "/sign-up" => "users#new", as: :sign_up
-  post "/sign-up" => "users#create"
-  post "cars/new", to: "cars#create"
-  post "trips/new", to: "trips#create"
+  get "log_in", to: "sessions#new"
+  post "log_in", to: "sessions#create"
+  get "log_out", to: "sessions#destroy"
+  resources :sessions
+  resources :owners
+  get "sign_up", to: "users#new"
+  post "sign_up", to: "users#create"
+  resources :users
+  resources :cars
+  get "loans/new", to: "loans#create_multiple", as: :complete
+  resources :loans
   get "trips/increment", as: :increment
   get "trips/decrement", as: :decrement
-  resources :loans
   resources :trips
   resources :password_resets
   # The priority is based upon order of creation: first created -> highest priority.

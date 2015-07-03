@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, only: :create
+  skip_before_action :require_login, only: [:new, :create]
 
   def new
   end
@@ -13,10 +13,10 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = user.auth_token
       end
       flash[:success] = "Welcome #{current_user.name}!"
-  		redirect_to(:action => 'index', :controller => 'trips')
+  		redirect_to trips_path
   	else
   		flash[:alert] = "There was a problem logging you in"
-  		redirect_to root_path
+  		redirect_to log_in_path
   	end
   end
 

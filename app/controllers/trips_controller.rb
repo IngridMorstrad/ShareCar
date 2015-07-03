@@ -24,7 +24,7 @@ class TripsController < ApplicationController
     if @trip.save
       passenger = Passenger.new(user: current_user, trip: @trip)
       passenger.save
-      redirect_to 'index'
+      redirect_to trips_path
     else
       render 'new'
     end
@@ -53,7 +53,7 @@ class TripsController < ApplicationController
     if @trip.update_attributes(trip_params)
       redirect_to(:action => 'show', :id => @trip.id)
     else
-      render 'index'
+      redirect_to trips_path
     end
   end
 
@@ -65,9 +65,9 @@ class TripsController < ApplicationController
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
     if @passenger.save and @trip.update_attributes(trip_params)
       #redirect_to(:action => 'show', :id => @trip.id)
-      redirect_to 'index' #TODO: We'll change it back to the above once show is ready
+      redirect_to trips_path #TODO: We'll change it back to the above once show is ready
     else
-      redirect_to 'index'
+      redirect_to trips_path
     end
   end
 
@@ -77,9 +77,9 @@ class TripsController < ApplicationController
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
       #redirect_to(:action => "show", :id => @trip.id)
-      redirect_to 'index' #TODO: We'll change it back to above once show is ready
+      redirect_to trips_path #TODO: We'll change it back to above once show is ready
     else
-      redirect_to 'index'
+      redirect_to trips_path
     end
   end
 
@@ -95,14 +95,14 @@ class TripsController < ApplicationController
   def is_passenger
     unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
       flash[:notice] = "You aren't on that trip"
-      redirect_to 'index'
+      redirect_to trips_path
     end
   end
 
   def is_owner
     unless Owner.where(id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
       flash[:notice] = "You don't own that trip"
-      redirect_to 'index'
+      redirect_to trips_path
     end
   end
 end

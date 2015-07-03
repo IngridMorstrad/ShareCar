@@ -23,12 +23,7 @@
             <li><strong><span class="navbar-text"><%= timepiece Time.zone.name %> <%= Time.zone.to_s %></span></strong></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><strong><span class="navbar-text"><%= current_user.name %></span></strong></li>
-            <li><%= link_to "Home", trips_path %></li>
-            <li><%= link_to "Add Trip", new_trip_path %></li>
-            <li><%= link_to "Add Car", new_car_path %></li>
-            <li><%= link_to "Add Owner", new_owner_path %></li>
-            <li><%= link_to "Log out", log_out_path, data:{no_turbolink: true} %></li>
+            <li><%= link_to "Homepage", root_path, data:{no_turbolink: true} %></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
