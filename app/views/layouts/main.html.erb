@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ShareCar</title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "main" %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+  <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand page-scroll" href="#page-top">
+          <i class="fa fa-car"></i>  <span class="light">ShareCar</span>
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-main-collapse">
+        <ul class="nav navbar-nav">
+            <li><span class="navbar-text"><%= timepiece Time.zone.name %> <%= Time.zone.to_s %></span></li>
+          </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+          <li class="hidden">
+            <a href="#page-top"></a>
+          </li>
+          <li>
+            <a data-toggle="modal" href="#login-overlay">Enter</a>
+          </li>
+          <li>
+            <a class="page-scroll" href="#about">About</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </div>
+  <%= yield %>
+  <!-- Footer -->
+  <footer>
+      <div class="container text-center">
+          <p>Copyright &copy; ShareCar 2015</p>
+      </div>
+  </footer>
+  <%= javascript_include_tag "main", "data-turbolinks-track" => true %>
+</body>
+</html>
