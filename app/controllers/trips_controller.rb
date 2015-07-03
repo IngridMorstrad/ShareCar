@@ -1,5 +1,4 @@
 class TripsController < ApplicationController
-  before_action :is_user, only: [:new, :create, :show, :edit, :update, :increment, :decrement, :delete, :index]
   before_action :is_passenger, only: [:show, :decrement, :edit, :update, :delete]
   before_action :is_owner, only: [:edit, :update, :delete]
 
@@ -25,7 +24,7 @@ class TripsController < ApplicationController
     if @trip.save
       passenger = Passenger.new(user: current_user, trip: @trip)
       passenger.save
-      redirect_to(:action => 'index')
+      redirect_to 'index'
     else
       render 'new'
     end
@@ -54,7 +53,7 @@ class TripsController < ApplicationController
     if @trip.update_attributes(trip_params)
       redirect_to(:action => 'show', :id => @trip.id)
     else
-      render('index')
+      render 'index'
     end
   end
 
@@ -66,9 +65,9 @@ class TripsController < ApplicationController
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
     if @passenger.save and @trip.update_attributes(trip_params)
       #redirect_to(:action => 'show', :id => @trip.id)
-      redirect_to "/" #TODO: We'll change it back to the above once show is ready
+      redirect_to 'index' #TODO: We'll change it back to the above once show is ready
     else
-      redirect_to "/"
+      redirect_to 'index'
     end
   end
 
@@ -78,9 +77,9 @@ class TripsController < ApplicationController
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
       #redirect_to(:action => "show", :id => @trip.id)
-      redirect_to "/" #TODO: We'll change it back to above once show is ready
+      redirect_to 'index' #TODO: We'll change it back to above once show is ready
     else
-      redirect_to "/"
+      redirect_to 'index'
     end
   end
 
@@ -93,24 +92,17 @@ class TripsController < ApplicationController
     params.require(:trip).permit(:distance, :car_id, :origin, :destination, :end_time, :start_time, :new_passenger_cost)
   end
 
-  def is_user
-    unless current_user
-      flash[:notice] = "You aren't logged in"
-      redirect_to log_in_path
-    end
-  end
-
   def is_passenger
     unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
       flash[:notice] = "You aren't on that trip"
-      redirect_to(root_url)
+      redirect_to 'index'
     end
   end
 
   def is_owner
     unless Owner.where(id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
       flash[:notice] = "You don't own that trip"
-      redirect_to(root_url)
+      redirect_to 'index'
     end
   end
 end

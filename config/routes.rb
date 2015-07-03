@@ -1,9 +1,12 @@
 ShareCar::Application.routes.draw do
+  root 'main#index'
+  post "/", to: "sessions#create"
+  get "main/index", as: :welcome
+  post "main/index", to: "sessions#create"
   get "password_resets/new"
   get "sessions/new"
   get "sessions/destroy"
   get "/log-in" => "sessions#new", as: :log_in
-  post "/log-in" => "sessions#create"
   get "/log-out" => "sessions#destroy", as: :log_out
   get "cars/new", as: :new_car
   get "cars/edit"
@@ -12,7 +15,6 @@ ShareCar::Application.routes.draw do
   get "loans/index" => "loans#index"
   get "owners/new", as: :new_owner
   post "owners/new", to: "owners#create"
-  root 'trips#index'
   get "trips/edit"
   get "/sign-up" => "users#new", as: :sign_up
   post "/sign-up" => "users#create"
