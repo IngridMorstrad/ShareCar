@@ -15,8 +15,8 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome #{current_user.name}!"
   		redirect_to trips_path
   	else
-  		flash[:alert] = "There was a problem logging you in"
-  		redirect_to log_in_path
+  		flash.now[:alert] = "Incorrect email or password"
+  		render 'new'
   	end
   end
 
