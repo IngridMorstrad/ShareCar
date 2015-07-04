@@ -10,7 +10,7 @@
       <%= form_tag do %>
         <div class="form-group">
           <label for="email" class="control-label">Email</label>
-          <input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter your email address" placeholder="example@gmail.com">
+          <input type="email" class="form-control" id="email" name="email" value="" required="" title="Please enter your email address" placeholder="example@gmail.com">
           <span class="help-block"></span>
         </div>
         <div class="form-group">
@@ -22,7 +22,6 @@
           <label for="remember_me">
               <input type="checkbox" name="remember_me" id="remember_me"> Remember me
           </label>
-          <span class="help-block">(if this is a private computer)</span>
         </div>
         <button type="submit" class="btn btn-success btn-block" data-no-turbolink>Login</button>
         <%= link_to "Forgot password", new_password_reset_path, {class: "btn btn-default btn-block", data:{no_turbolink: true}} %>
