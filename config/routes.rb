@@ -14,6 +14,7 @@ ShareCar::Application.routes.draw do
   resources :loans
   get "trips/increment", as: :increment
   get "trips/decrement", as: :decrement
+  get "trips/show", as: :details
   resources :trips
   resources :password_resets
   # The priority is based upon order of creation: first created -> highest priority.

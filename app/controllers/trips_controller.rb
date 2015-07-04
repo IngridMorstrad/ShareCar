@@ -7,7 +7,7 @@ class TripsController < ApplicationController
   end
 
   def show
-    @trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:trip][:id])
   end
 
   def new
@@ -76,8 +76,7 @@ class TripsController < ApplicationController
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
-      #redirect_to(:action => "show", :id => @trip.id)
-      redirect_to trips_path #TODO: We'll change it back to above once show is ready
+      redirect_to details_path(@trip)
     else
       redirect_to trips_path
     end
@@ -93,14 +92,14 @@ class TripsController < ApplicationController
   end
 
   def is_passenger
-    unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
+    unless Passenger.where(trip_id: params[:trip][:id], user_id: current_user.id).present?
       flash[:notice] = "You aren't on that trip"
       redirect_to trips_path
     end
   end
 
   def is_owner
-    unless Owner.where(id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
+    unless Owner.where(id: Trip.find(params[:trip][:id]).car_id, user_id: current_user.id).present?
       flash[:notice] = "You don't own that trip"
       redirect_to trips_path
     end
