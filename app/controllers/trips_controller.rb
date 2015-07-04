@@ -8,6 +8,9 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find(params[:trip][:id])
+    @car = Car.find(@trip.car_id)
+    @num_passengers = (Passenger.where(trip_id: @trip.id).collect {|p| User.find(p.user_id)}).length
+
   end
 
   def new
@@ -64,9 +67,10 @@ class TripsController < ApplicationController
     #Now adding the record corresponding to (trip_id,user_id) to passengers table
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
     if @passenger.save and @trip.update_attributes(trip_params)
-      #redirect_to(:action => 'show', :id => @trip.id)
-      redirect_to trips_path #TODO: We'll change it back to the above once show is ready
+      flash[:error] = ""
+      redirect_to details_path(@trip)
     else
+      flash[:error] = "Failed to add passenger to trip"
       redirect_to trips_path
     end
   end
@@ -76,8 +80,10 @@ class TripsController < ApplicationController
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
+      flash[:error] = ""
       redirect_to details_path(@trip)
     else
+      flash[:error] = "Failed to remove passenger from trip"
       redirect_to trips_path
     end
   end

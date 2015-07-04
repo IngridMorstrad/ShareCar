@@ -1,4 +1,21 @@
-<h1>Trips#show</h1>
-<p>Find me in app/views/trips/show.html.erb</p>
-<%= "#{@trip.start_time} #{@trip.end_time} #{@trip.distance}" %>
+<!-- Jumbotron -->
+<div class="jumbotron">
+  <h1>Your Trip</h1>
+  <p>Details about your trip.</p>
+</div>
+
+Travelling from <%= @trip.origin %>
+on <%= @trip.start_time %>.
+
 <br>
+
+Arriving at <%= @trip.destination %> on <%= @trip.end_time %>
+
+<br>
+
+This trip is expected to cost <%= @trip.total_trip_cost/@num_passengers %> $.
+<br>
+<b>Note:</b> Price is tentative and may change as people join/leave the trip.
+
+<br>
+The car for this trip will be a <%= @car.year %> <%= @car.make %> <%= @car.model %>
