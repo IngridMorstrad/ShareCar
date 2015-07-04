@@ -23,6 +23,8 @@
             <li><strong><span class="navbar-text"><%= timepiece Time.zone.name %> <%= Time.zone.to_s %></span></strong></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Login", log_in_path %></li>
+            <li><%= link_to "Register", sign_up_path %></li>
             <li><%= link_to "Homepage", root_path, data:{no_turbolink: true} %></li>
           </ul>
         </div>
