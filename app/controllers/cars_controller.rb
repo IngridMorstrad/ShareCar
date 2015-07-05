@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  before_action :owns_car, only: [:edit, :update, :destroy]
+  before_action :owns_car, only: [:edit, :update, :destroy, :delete]
 
   def new
     @car = Car.new

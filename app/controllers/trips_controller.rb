@@ -7,7 +7,7 @@ class TripsController < ApplicationController
   end
 
   def show
-    @trip = Trip.find(params[:trip][:id])
+    @trip = Trip.find(params[:id])
     @car = Car.find(@trip.car_id)
     @num_passengers = (Passenger.where(trip_id: @trip.id).collect {|p| User.find(p.user_id)}).length
 
@@ -68,7 +68,7 @@ class TripsController < ApplicationController
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
     if @passenger.save and @trip.update_attributes(trip_params)
       flash[:error] = ""
-      redirect_to details_path(@trip)
+      redirect_to details_trip_path(@trip)
     else
       flash[:error] = "Failed to add passenger to trip"
       redirect_to trips_path
@@ -81,7 +81,7 @@ class TripsController < ApplicationController
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
       flash[:error] = ""
-      redirect_to details_path(@trip)
+      redirect_to details_trip_path(@trip)
     else
       flash[:error] = "Failed to remove passenger from trip"
       redirect_to trips_path
@@ -98,14 +98,14 @@ class TripsController < ApplicationController
   end
 
   def is_passenger
-    unless Passenger.where(trip_id: params[:trip][:id], user_id: current_user.id).present?
+    unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
       flash[:notice] = "You aren't on that trip"
       redirect_to trips_path
     end
   end
 
   def is_owner
-    unless Owner.where(id: Trip.find(params[:trip][:id]).car_id, user_id: current_user.id).present?
+    unless Owner.where(car_id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
       flash[:notice] = "You don't own that trip"
       redirect_to trips_path
     end
