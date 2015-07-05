@@ -12,8 +12,14 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "should get destroy" do
-    get :destroy
-    assert_response :success
+    user=User.new(id:1,name:"venky",email:"blah@gmail.com",password:"papajohns",password_confirmation:"papajohns")
+    if user.save
+      cookies[:auth_token]=user.auth_token
+    else
+      puts "WTF BRO"
+    end
+    get :destroy, :id => user.id
+    assert_redirected_to(controller: "main")
   end
 
 end

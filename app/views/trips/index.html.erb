@@ -51,9 +51,9 @@
                 <td><%= link_to "Join", increment_path(:trip => {:id => t.id}), html_options={class: "btn btn-danger"} %></td>
               <% end %>
               <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                <td><%= link_to "Complete", complete_path({:trip_id => t.id}), html_options={class: "btn btn-success"} %></td>
+                <td><%= link_to "Complete", complete_loans_path({:trip_id => t.id}), html_options={class: "btn btn-success"} %></td>
               <% end %>
-              <td><%= link_to "Details", details_path(:trip => {:id => t.id}), html_options={class: "btn btn-success"} %></td>
+              <td><%= link_to "Details", details_trip_path({:id => t.id}), html_options={class: "btn btn-success"} %></td>
           </tr>
         <% end %>
       <% end %>

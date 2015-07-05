@@ -9,13 +9,28 @@ ShareCar::Application.routes.draw do
   get "sign_up", to: "users#new"
   post "sign_up", to: "users#create"
   resources :users
-  resources :cars
-  get "loans/new", to: "loans#create_multiple", as: :complete
-  resources :loans
+  resources :cars do
+    member do
+      get "delete"
+    end
+  end
+  #get "loans/new", to: "loans#create_multiple", as: :complete
+  resources :loans do
+    member do
+      get "delete"
+    end
+    collection do
+      get "create_multiple", as: :complete
+    end
+  end
   get "trips/increment", as: :increment
   get "trips/decrement", as: :decrement
-  get "trips/show", as: :details
-  resources :trips
+  resources :trips do
+    member do
+      get "show", as: :details
+      get "delete"
+    end
+  end
   resources :password_resets
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
