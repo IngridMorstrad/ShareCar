@@ -6,6 +6,7 @@ ShareCar::Application.routes.draw do
   get "log_out", to: "sessions#destroy"
   resources :sessions
   resources :owners
+  post "owners/new", to: "owners#create"
   get "sign_up", to: "users#new"
   post "sign_up", to: "users#create"
   resources :users
@@ -14,7 +15,7 @@ ShareCar::Application.routes.draw do
       get "delete"
     end
   end
-  #get "loans/new", to: "loans#create_multiple", as: :complete
+  post "cars/new", to: "cars#create"
   resources :loans do
     member do
       get "delete"
@@ -23,14 +24,16 @@ ShareCar::Application.routes.draw do
       get "create_multiple", as: :complete
     end
   end
-  get "trips/increment", as: :increment
-  get "trips/decrement", as: :decrement
+  post "loans/new", to: "loans#create"
   resources :trips do
     member do
       get "show", as: :details
       get "delete"
     end
   end
+  get "trips/increment", as: :increment
+  get "trips/decrement", as: :decrement
+  post "trips/new", to: "trips#create"
   resources :password_resets
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
