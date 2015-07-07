@@ -13,7 +13,7 @@ Arriving at <%= @trip.destination %> on <%= @trip.end_time %>
 
 <br>
 
-This trip is expected to cost <%= @trip.total_trip_cost/@num_passengers %> $.
+This trip is expected to cost <%= number_to_currency(@trip.total_trip_cost/@num_passengers) %> $.
 <br>
 <b>Note:</b> Price is tentative and may change as people join/leave the trip.
 

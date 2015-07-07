@@ -1,10 +1,8 @@
-<!-- Jumbotron -->
 <div class="jumbotron">
   <h1>Trips</h1>
   <p>Travel to any place of your choice.</p>
 </div>
 
-<!-- Example row of columns -->
 <div class="row-fluid">
   <table class="table">
     <thead>
@@ -33,16 +31,6 @@
             <td><%= t.start_time.to_formatted_s(:short) %></td>
             <td><%= t.end_time.to_formatted_s(:short) %></td>
             <td><%= t.distance %></td>
-            <!--            <% car = Car.find(t.car_id) %>
-            <td>
-              <% if car %>
-                <%= "#{car.make} #{car.model} #{car.year}" %>
-              <% else %>
-                <%= "NONE" %>
-              <% end %>
-            </td>-->
-            <!--            <td> <%= number_to_currency(t.new_passenger_cost) %> </td> -->
-            <!--            <td> <%= number_to_currency(t.total_trip_cost) %> </td> -->
             <td>
               <%= link_to "Details", details_trip_path({:id => t.id}), html_options={class: "btn btn-success"} %>
               <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
