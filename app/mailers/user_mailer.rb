@@ -3,7 +3,6 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
   	@user = user
-  	@url = log_in_url
   	mail(to: @user.email, subject: 'Welcome to ShareCar :-)')
   end
 

@@ -10,7 +10,7 @@
       your username is: <%= @user.email %>.<br>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      To activate your account, just follow this link: <%= edit_account_activation_url(@user.auth_token, email: @user.email) %>.
     </p>
     <p>Thanks for joining and have a great day!</p>
   </body>

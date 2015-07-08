@@ -4,6 +4,7 @@ class PasswordResetsController < ApplicationController
 	def new
 	end
 	def create
+	  params[:email] = params[:email].downcase
 	  @user = User.find_by_email(params[:email])
 	  @user.send_password_reset if @user
 	  redirect_to log_in_path, :notice => "Email sent with password reset instructions."
@@ -11,6 +12,9 @@ class PasswordResetsController < ApplicationController
 
 	def edit
 	  @user = User.find_by_password_reset_token!(params[:id])
+	  if !(@user)
+	  	redirect_to new_password_reset_path, :notice => "User not found!"
+	  end
 	end
 
 	def update

@@ -5,8 +5,9 @@ class SessionsController < ApplicationController
   end
 
   def create
+    params[:email] = params[:email].downcase
     user = User.find_by_email(params[:email])
-  	if user and User.authenticate(params[:email],params[:password])
+  	if user and User.authenticate(params[:email],params[:password]) and user.is_activated?
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else
@@ -22,6 +23,7 @@ class SessionsController < ApplicationController
 
   def destroy
     cookies.delete(:auth_token)
-  	redirect_to root_path
+    flash[:success] = "Logged out!"
+  	redirect_to log_in_path
   end
 end
