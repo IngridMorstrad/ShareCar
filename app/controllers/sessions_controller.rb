@@ -24,6 +24,6 @@ class SessionsController < ApplicationController
   def destroy
     cookies.delete(:auth_token)
     flash[:success] = "Logged out!"
-  	redirect_to log_in_path
+  	redirect_to root_path
   end
 end
