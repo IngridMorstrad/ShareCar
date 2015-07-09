@@ -4,3 +4,9 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+camry:
+  make: toyota
+  model: 2
+  year: 2010
+  seats: 4
+  cost_per_mile: 2.5

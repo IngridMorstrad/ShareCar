@@ -1,24 +1,20 @@
 require 'test_helper'
 
 class LoansControllerTest < ActionController::TestCase
+
+  def setup
+    @user = users(:petr)
+  end
+
+
   test "should get index" do
-    user=User.new(id:1,name:"venky",email:"blah@gmail.com",password:"papajohns",password_confirmation:"papajohns")
-    if user.save
-      cookies[:auth_token]=user.auth_token
-    else
-      puts "WTF BRO"
-    end
+    cookies[:auth_token] = @user.auth_token
     get :index
     assert_response :success
   end
 
   test "should get show" do
-    user=User.new(id:1,name:"venky",email:"blah@gmail.com",password:"papajohns",password_confirmation:"papajohns")
-    if user.save
-      cookies[:auth_token]=user.auth_token
-    else
-      puts "WTF BRO"
-    end
+    cookies[:auth_token] = @user.auth_token
     loan=Loan.new(id:1)
     if !(loan.save)
       puts "LOAN NOT SAVED BRO"
@@ -28,23 +24,13 @@ class LoansControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    user=User.new(id:1,name:"venky",email:"blah@gmail.com",password:"papajohns",password_confirmation:"papajohns")
-    if user.save
-      cookies[:auth_token]=user.auth_token
-    else
-      puts "WTF BRO"
-    end
+    cookies[:auth_token] = @user.auth_token
     get :new
     assert_response :success
   end
 
   test "should get edit" do
-    user=User.new(id:1,name:"venky",email:"blah@gmail.com",password:"papajohns",password_confirmation:"papajohns")
-    if user.save
-      cookies[:auth_token]=user.auth_token
-    else
-      puts "WTF BRO"
-    end
+    cookies[:auth_token] = @user.auth_token
     loan=Loan.new(id:1)
     if !(loan.save)
       puts "LOAN NOT SAVED BRO"
@@ -54,12 +40,7 @@ class LoansControllerTest < ActionController::TestCase
   end
 
   test "should get delete" do
-    user=User.new(id:1,name:"venky",email:"blah@gmail.com",password:"papajohns",password_confirmation:"papajohns")
-    if user.save
-      cookies[:auth_token]=user.auth_token
-    else
-      puts "WTF BRO"
-    end
+    cookies[:auth_token] = @user.auth_token
     loan=Loan.new(id:1)
     if !(loan.save)
       puts "LOAN NOT SAVED BRO"

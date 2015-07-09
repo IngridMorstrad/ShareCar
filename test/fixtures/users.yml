@@ -1,2 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
+#
+petr:
+  name: Petr Mitrichev
+  email: petr@example.com
+  <% salt = BCrypt::Engine.generate_salt %>
+  password_salt: <%= salt %>
+  password_hash: <%= BCrypt::Engine.hash_secret("mypassword", salt) %>
+  auth_token: <%= SecureRandom.urlsafe_base64 %>
+  activated: true
