@@ -5,11 +5,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:email].to_s == ''
-      flash.now[:alert] = "Email field is blank."
-      render "new"
-    elsif params[:password].to_s == ''
-      flash.now[:alert] = "Password field is blank."
+    if params[:email].to_s == '' or params[:password].to_s == ''
+      flash.now[:alert] = "Email and/or Password field is blank."
       render "new"
     else
       params[:email] = params[:email].downcase

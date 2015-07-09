@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
     has_many :loan
 	attr_accessor :password
 	validates_confirmation_of :password
-    validates :name,  presence: true, length: { maximum: 50 }
+    validates :name,  presence: true, length: { maximum: 50, minimum: 1 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+    validates :email, presence: true, length: { maximum: 255, minimum: 1 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
     before_create :create_auth_token
     before_save :encrypt_password, :downcase_email
     after_save :clear_password

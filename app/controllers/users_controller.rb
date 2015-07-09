@@ -7,12 +7,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    if @user
+    if @user.valid?
       @user.send_activation_email
       flash[:notice] = "Succesfully created account and activation email sent with instructions."
       redirect_to log_in_path
     else
-      flash[:alert] = "There was a problem in creating your account! Please, Try again."
+      flash.now[:alert] = "There was a problem in creating your account! Please, Try again."
       render 'new'
     end
   end
