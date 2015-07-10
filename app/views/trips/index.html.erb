@@ -32,16 +32,24 @@
             <td><%= t.end_time.to_formatted_s(:short) %></td>
             <td><%= t.distance %></td>
             <td>
-              <%= link_to "Details", details_trip_path({:id => t.id}), html_options={class: "btn btn-success"} %>
+              <%= link_to "Details", details_trip_path({:id => t.id}), html_options={class: "btn btn-info"} %>
+              <!-- if the current user is a passenger on this trip -->
               <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                <% if Passenger.where(trip_id: t.id).count > 1 %>
-                  <%= link_to "Leave", decrement_path(:trip => {:id => t.id}), html_options={class: "btn btn-info"} %>
+                <!-- if the current user is an owner on this trip -->
+                <% if Owner.where(user_id: current_user.id, car_id: t.car_id).exists? %>
+                  <!-- if the current user is NOT the last owner on this trip -->
+                  <% if Owner.where(car_id: t.car_id, user_id: Passenger.where(trip_id: t.id).pluck(:user_id)).count > 1 %>
+                    <%= link_to "Leave", decrement_path(:trip => {:id => t.id}), html_options={class: "btn btn-danger"} %>
+                  <% end %>
+                  <!-- current user is an owner hence he can "complete" the trip whenever he chooses to -->
+                  <%= link_to "Complete", complete_loans_path({:trip_id => t.id}), html_options={class: "btn btn-success"} %>
+                <!-- current user is not an owner on this trip so he can leave always -->
+                <% else %>
+                  <%= link_to "Leave", decrement_path(:trip => {:id => t.id}), html_options={class: "btn btn-danger"} %>
                 <% end %>
-              <% elsif Passenger.where(trip_id: t.id, user_id: current_user.id).count < Car.find(t.car_id).seats %>
-                <%= link_to "Join", increment_path(:trip => {:id => t.id}), html_options={class: "btn btn-danger"} %>
-              <% end %>
-              <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                <%= link_to "Complete", complete_loans_path({:trip_id => t.id}), html_options={class: "btn btn-success"} %>
+              <!-- if current user is not a passenger on the trip and the trip still has seats remaining -->
+              <% elsif Passenger.where(trip_id: t.id).count < Car.find(t.car_id).seats %>
+                <%= link_to "Join", increment_path(:trip => {:id => t.id}), html_options={class: "btn btn-info"} %>
               <% end %>
           </td>
           </tr>

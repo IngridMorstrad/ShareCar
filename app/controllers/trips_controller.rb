@@ -25,7 +25,7 @@ class TripsController < ApplicationController
     @trip.new_passenger_cost = base_cost * 1.1/2
     @trip.completed = false
     if @trip.save
-      passenger = Passenger.new(user: current_user, trip: @trip)
+      passenger = Passenger.new(user_id: current_user.id, trip_id: @trip.id)
       passenger.save
       redirect_to trips_path
     else
@@ -67,7 +67,7 @@ class TripsController < ApplicationController
     #Now adding the record corresponding to (trip_id,user_id) to passengers table
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
     if @passenger.save and @trip.update_attributes(trip_params)
-      flash[:info] = ""
+      flash[:success] = "You've successfully joined this trip"
       redirect_to details_trip_path(@trip)
     else
       flash[:danger] = "Failed to add passenger to trip"
@@ -80,7 +80,7 @@ class TripsController < ApplicationController
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
-      flash[:info] = ""
+      flash[:success] = "You've successfully left this trip"
       redirect_to details_trip_path(@trip)
     else
       flash[:danger] = "Failed to remove passenger from trip"

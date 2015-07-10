@@ -7,10 +7,16 @@ class CarsController < ApplicationController
 
   def create
     @car = Car.new(car_params)
-    @owner = Owner.new(car: @car, user: current_user)
-    if @car.save and @owner.save
-      redirect_to trips_path
+    if @car.save
+      @owner = Owner.new(car_id: @car.id, user_id: current_user.id)
+      if @owner.save
+        redirect_to trips_path
+      else
+        flash.now[:danger] = "Error in saving owner!"
+        render 'new'
+      end
     else
+      flash.now[:danger] = "Error in saving car!"
       render 'new'
     end
   end
