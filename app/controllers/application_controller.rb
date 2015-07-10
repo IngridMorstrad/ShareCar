@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private
   def require_login
   	unless current_user
-  		flash[:error] = "You aren't logged in"
+  		flash[:warning] = "You aren't logged in"
   		redirect_to log_in_path
   	end
   end

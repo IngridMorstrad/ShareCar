@@ -67,10 +67,10 @@ class TripsController < ApplicationController
     #Now adding the record corresponding to (trip_id,user_id) to passengers table
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
     if @passenger.save and @trip.update_attributes(trip_params)
-      flash[:error] = ""
+      flash[:info] = ""
       redirect_to details_trip_path(@trip)
     else
-      flash[:error] = "Failed to add passenger to trip"
+      flash[:danger] = "Failed to add passenger to trip"
       redirect_to trips_path
     end
   end
@@ -80,10 +80,10 @@ class TripsController < ApplicationController
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
     if passenger.destroy and @trip.update_attributes(trip_params)
-      flash[:error] = ""
+      flash[:info] = ""
       redirect_to details_trip_path(@trip)
     else
-      flash[:error] = "Failed to remove passenger from trip"
+      flash[:danger] = "Failed to remove passenger from trip"
       redirect_to trips_path
     end
   end
@@ -99,14 +99,14 @@ class TripsController < ApplicationController
 
   def is_passenger
     unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
-      flash[:notice] = "You aren't on that trip"
+      flash[:warning] = "You aren't on that trip"
       redirect_to trips_path
     end
   end
 
   def is_owner
     unless Owner.where(car_id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
-      flash[:notice] = "You don't own that trip"
+      flash[:warning] = "You don't own that trip"
       redirect_to trips_path
     end
   end

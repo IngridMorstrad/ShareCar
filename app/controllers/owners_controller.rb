@@ -9,7 +9,7 @@ class OwnersController < ApplicationController
           flash[:success] = "Successfully created owner"
           redirect_to trips_path
       else
-          flash[:error] = "Couldn't create owner"
+          flash[:danger] = "Couldn't create owner"
           render 'new'
       end
   end

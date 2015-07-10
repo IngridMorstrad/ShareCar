@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     if params[:email].to_s == '' or params[:password].to_s == ''
-      flash.now[:alert] = "Email and/or Password field is blank."
+      flash.now[:warning] = "Email and/or Password field is blank."
       render "new"
     else
       params[:email] = params[:email].downcase
@@ -20,15 +20,17 @@ class SessionsController < ApplicationController
         flash[:success] = "Welcome #{current_user.name}!"
     		redirect_to trips_path
     	else
-    		flash.now[:alert] = "Incorrect email or password"
+    		flash.now[:danger] = "Incorrect email or password"
     		render 'new'
     	end
     end
   end
 
   def destroy
-    cookies.delete(:auth_token)
-    flash[:success] = "Logged out!"
+    if current_user
+      cookies.delete(:auth_token)
+      @current_user = nil
+    end
   	redirect_to root_path
   end
 end

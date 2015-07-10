@@ -34,7 +34,7 @@ class CarsController < ApplicationController
 
   def owns_car
     unless Owner.where(car_id: params[:id], user_id: current_user.id).present?
-      flash[:notice] = "Illegal action"
+      flash[:danger] = "Illegal action"
       redirect_to trips_path
     end
   end

@@ -5,7 +5,7 @@ class AccountActivationsController < ApplicationController
 		if @user and @user.activate(params[:id])
 			flash[:success] = "Your account is now activated for use!"
 		else
-			flash[:alert] = "Invalid activation url."
+			flash[:danger] = "Invalid activation url."
 		end
 		redirect_to log_in_path
 	end

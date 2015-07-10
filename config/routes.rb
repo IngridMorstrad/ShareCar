@@ -3,8 +3,7 @@ ShareCar::Application.routes.draw do
   get "main/index", as: :welcome
   get "log_in", to: "sessions#new"
   post "log_in", to: "sessions#create"
-  get "log_out", to: "sessions#destroy"
-  resources :sessions
+  delete "log_out", to: "sessions#destroy"
   post "owners/new", to: "owners#create"
   resources :owners
   get "sign_up", to: "users#new"

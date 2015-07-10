@@ -17,10 +17,10 @@ class SessionsControllerTest < ActionController::TestCase
   #  assert_redirected_to log_in_path
   #end
 
-  test "should get destroy" do
+  test "should logout user" do
     cookies[:auth_token] = @user.auth_token
-    get :destroy, :id => @user.id
-    assert_redirected_to(controller: "main")
+    delete :destroy
+    assert_redirected_to root_path, "Error! Not on root page after logout."
   end
 
 end

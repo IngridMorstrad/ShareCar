@@ -43,13 +43,19 @@
                 <li><%= link_to "Add Owner", new_owner_path, data:{no_turbolink: true} %></li>
               </ul>
             </li>
-            <li><%= link_to "Log out", log_out_path, data:{no_turbolink: true} %></li>
+            <li><%= link_to "Log out", log_out_path, method: "delete", data:{no_turbolink: true} %></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
       </div>
       <!-- /.container -->
     </div>
+    <% flash.each do |key, value| -%>
+      <div class="alert alert-<%= key %> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= value %>
+      </div>
+    <% end -%>
     <%= yield %>
   </div>
   <!-- Footer -->

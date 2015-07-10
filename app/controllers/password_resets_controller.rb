@@ -9,29 +9,31 @@ class PasswordResetsController < ApplicationController
 
 	def create
 	  if params[:email].to_s == ''
-	  	flash.now[:alert] = "Email field is blank."
+	  	flash.now[:warning] = "Email field is blank."
 	  	render "index"
 	  else
 	    params[:email] = params[:email].downcase
 	    @user = User.find_by_email(params[:email])
 	    @user.send_password_reset if @user
-	    redirect_to log_in_path, :notice => "Email sent with password reset instructions."
+	    flash[:info] = "Email sent with password reset instructions."
+	    redirect_to log_in_path
 	  end
 	end
 
 	def edit
 	  @user = User.find_by_password_reset_token!(params[:id])
 	  if !(@user)
-	  	redirect_to password_resets_path, :notice => "User not found!"
+	  	flash[:warning] = "User not found!"
+	  	redirect_to password_resets_path
 	  end
 	end
 
 	def update
 	  @user = User.find_by_password_reset_token!(params[:id])
 	  if @user.password_reset_sent_at < 2.hours.ago
-	    redirect_to password_resets_path, :alert => "Password reset has expired."
+	    redirect_to password_resets_path, :danger => "Password reset has expired."
 	  elsif @user.update_attributes(params.require(:user).permit(:password, :password_confirmation)) #TODO: Make it safer.
-	    redirect_to log_in_path, :notice => "Password has been reset!"
+	    redirect_to log_in_path, :success => "Password has been reset!"
 	  else
 	    render :edit
 	  end

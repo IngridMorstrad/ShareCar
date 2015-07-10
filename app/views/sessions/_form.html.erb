@@ -1,20 +1,6 @@
 <div class="row-fluid">
   <div class="span4 well">
     <div class="form">
-      <% if flash[:alert] %>
-        <div class="alert alert-danger">
-          <%= flash[:alert] %>
-        </div>
-      <% elsif flash[:notice] %>
-        <div class="alert alert-info">
-          <%= flash[:notice] %>
-        </div>
-      <% elsif flash[:success] %>
-        <div class="alert alert-success">
-          <%= flash[:success] %>
-        </div>
-      <% end %>
-        
       <%= form_tag do %>
         <div class="form-group">
           <label for="email" class="control-label">Email</label>
@@ -28,7 +14,7 @@
         </div>
         <div class="checkbox">
           <label for="remember_me">
-              <input type="checkbox" name="remember_me" id="remember_me"> Remember me
+              <input type="checkbox" name="remember_me" id="remember_me"> Remember me on this computer
           </label>
         </div>
         <button type="submit" class="btn btn-success btn-block" data-no-turbolink>Login</button>
