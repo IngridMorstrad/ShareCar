@@ -3,7 +3,8 @@ require 'test_helper'
 class TripTest < ActiveSupport::TestCase
 
   def setup
-    @trip = Trip.create(distance: 8, car_id: 1, origin: 'High point woods', destination: 'Epic', new_passenger_cost: 1.1/2*0.945, start_time: DateTime.new(2015,4,1,17), end_time: DateTime.new(2015,4,1,17,30), total_trip_cost: 0.945, completed: false)
+    @car = cars(:camry)
+    @trip=Trip.create(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
   end
 
   test "should be valid" do

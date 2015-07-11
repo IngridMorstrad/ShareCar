@@ -3,9 +3,8 @@
     <div class="form">
       <%= form_for (@trip), url: "new" do |f| %>
         <% if @trip.errors.any? %>
-          <div id="error_explanation">
+          <div id="error_explanation" class="alert alert-danger alert-block">
             <h4><%= pluralize(@trip.errors.count, "error") %> occurred:</h4>
-
             <ul>
               <% @trip.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
