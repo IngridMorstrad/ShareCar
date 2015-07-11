@@ -5,28 +5,28 @@ class TripsControllerTest < ActionController::TestCase
   def setup
     @user = users(:petr)
     @car = cars(:camry)
+    @trip=Trip.new(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
+    if !@trip.save
+      puts "TRIP NOT SAVED BRO"
+    end
+    @passenger=Passenger.new(trip_id:@trip.id,user_id:@user.id)
+    if !@passenger.save
+      puts "PASSENGER NOT SAVED BRO"
+    end
+    @owner=Owner.new(car_id:@car.id,user_id:@user.id)
+    if !@owner.save
+      puts "OWNER NOT SAVED BRO"
+    end
   end
   test "should get index" do
     cookies[:auth_token] = @user.auth_token
-    trip=Trip.new(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
-    if !trip.save
-      puts "TRIP NOT SAVED BRO"
-    end
     get :index
     assert_response :success
   end
 
   test "should get show" do
     cookies[:auth_token] = @user.auth_token
-    trip=Trip.new(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
-    if !trip.save
-      puts "TRIP NOT SAVED BRO"
-    end
-    passenger=Passenger.new(trip_id:1,user_id:@user.id)
-    if !passenger.save
-      puts "PASSENGER NOT SAVED BRO"
-    end
-    get :show, id: trip.id
+    get :show, id: @trip.id
     assert_response :success
   end
 
@@ -38,37 +38,13 @@ class TripsControllerTest < ActionController::TestCase
 
   test "should get edit" do
     cookies[:auth_token] = @user.auth_token
-    trip=Trip.new(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
-    if !trip.save
-      puts "TRIP NOT SAVED BRO"
-    end
-    passenger=Passenger.new(trip_id:1,user_id:@user.id)
-    if !passenger.save
-      puts "PASSENGER NOT SAVED BRO"
-    end
-    owner=Owner.new(car_id:@car.id,user_id:@user.id)
-    if !owner.save
-      puts "OWNER NOT SAVED BRO"
-    end
-    get :edit, id: trip.id
+    get :edit, id: @trip.id
     assert_response :success
   end
 
   test "should get delete" do
     cookies[:auth_token] = @user.auth_token
-    trip=Trip.new(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
-    if !trip.save
-      puts "TRIP NOT SAVED BRO"
-    end
-    passenger=Passenger.new(trip_id:1,user_id:@user.id)
-    if !passenger.save
-      puts "PASSENGER NOT SAVED BRO"
-    end
-    owner=Owner.new(car_id:@car.id,user_id:@user.id)
-    if !owner.save
-      puts "OWNER NOT SAVED BRO"
-    end
-    get :delete, id: trip.id
+    get :delete, id: @trip.id
     assert_response :success
   end
 
