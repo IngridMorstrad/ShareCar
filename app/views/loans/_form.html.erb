@@ -1,4 +1,14 @@
 <%= form_for(@loan) do |f| %>
+  <% if @loan.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger alert-block">
+      <h4><%= pluralize(@loan.errors.count, "error") %> occurred:</h4>
+      <ul>
+        <% @loan.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="loanee">
     <%= f.label :borrower_id %><br>

@@ -7,6 +7,16 @@
 <div class="span4 well">
   <div class="form">
     <%= form_for @owner, url: owners_url do |f| %>
+      <% if @owner.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger alert-block">
+          <h4><%= pluralize(@owner.errors.count, "error") %> occurred:</h4>
+          <ul>
+            <% @owner.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="form-group">
         <%= f.label :user_id %><br>
         <%= f.select(:user_id, User.all.collect {|c| [c.name, c.id]}) %>
