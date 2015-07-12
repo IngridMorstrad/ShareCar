@@ -6,26 +6,22 @@
 <div class="row-fluid">
   <table class="table">
     <thead>
-      <th>
-        Origin
-      </th>
-      <th>
-        Destination
-      </th>
-      <th>
-        Start Time
-      </th>
-      <th>
-        End Time
-      </th>
-      <th>
-        Distance
-      </th>
+      <th>  </th>
+      <th> Origin </th>
+      <th> Destination </th>
+      <th> Start Time </th>
+      <th> End Time </th>
+      <th> Distance </th>
     </thead>
     <tbody> 
       <% @trips.each do |t| %>
         <% if not t.completed %>
           <tr>
+            <td> 
+              <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
+                <span class="glyphicon glyphicon-ok"></span>
+              <% end %>
+            </td>
             <td><%= t.origin %></td>
             <td><%= t.destination %></td>
             <td><%= t.start_time.to_formatted_s(:short) %></td>
@@ -47,18 +43,24 @@
                   <%= link_to "Complete", complete_loans_path(trip_id: t.id), {class: "btn btn-success"} %>
                   <!-- current user is an owner hence he can "delete" the trip whenever he chooses to -->
                   <%= link_to "Cancel", trip_path(id: t.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
-                <!-- current user is not an owner on this trip so he can leave always -->
+                  <!-- current user is not an owner on this trip so he can leave always -->
                 <% else %>
                   <%= link_to "Leave", decrement_path(id: t.id), {class: "btn btn-danger"} %>
                 <% end %>
-              <!-- if current user is not a passenger on the trip and the trip still has seats remaining -->
-              <% elsif Passenger.where(trip_id: t.id).count < Car.find(t.car_id).seats %>
-                <%= link_to "Join", increment_path(id: t.id), {class: "btn btn-primary"} %>
+                <!-- if current user is not a passenger on the trip and the trip still has seats remaining -->
+              <% else %>
+                <% if Passenger.where(trip_id: t.id).count < Car.find(t.car_id).seats %>
+                  <%= link_to "Join", increment_path(id: t.id), {class: "btn btn-primary"} %>
+                <% else %>
+                  <button class="btn btn-primary disabled"><i class="glyphicon glyphicon-lock"></i>Join</button>
+                <% end %>
               <% end %>
-          </td>
+            </td>
           </tr>
         <% end %>
       <% end %>
+      <span class="glyphicon glyphicon-lock"></span> Trip is full.<br>
+      <span class="glyphicon glyphicon-ok"></span> You're on this trip.
     </tbody>
   </table>
 </div>
