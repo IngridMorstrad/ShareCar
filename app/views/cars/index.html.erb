@@ -1,0 +1,39 @@
+<div class="jumbotron">
+  <h1>Cars</h1>
+  <p>This is like your garage.</p>
+</div>
+
+<% if @cars.empty? %>
+  <div class="span4 well">
+    <h3>Seems you don't have any cars yet.</h3>
+  </div>
+<% else %>
+  <div class="row-fluid">
+    <table class="table">
+      <thead>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Seats</th>
+        <th>Cost per mile</th>
+      </thead>
+      <tbody>
+        <% @cars.each do |c| %>
+          <tr>
+            <td><%= c.make %></td>
+            <td><%= c.model %></td>
+            <td><%= c.year %></td>
+            <td><%= c.seats %></td>
+            <td><%= c.cost_per_mile %></td>
+            <% if Trip.where(car_id: c.id).empty? %>
+              <td>
+                <%= link_to "Edit", edit_car_path(id: c.id), class: "btn btn-info" %>
+                <%= link_to "Delete", delete_car_path(id: c.id), method: "delete", class: "btn btn-danger" %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

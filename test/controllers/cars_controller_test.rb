@@ -5,6 +5,7 @@ class CarsControllerTest < ActionController::TestCase
   def setup
     @car = cars(:camry)
     @user = users(:petr)
+    @owner = Owner.create(car_id: @car.id, user_id: @user.id)
   end
 
   test "should get new" do
@@ -15,22 +16,14 @@ class CarsControllerTest < ActionController::TestCase
 
   test "should get edit" do
     cookies[:auth_token] = @user.auth_token
-    owner = Owner.new(car_id: @car.id, user_id: @user.id)
-    if !owner.save
-      puts "NO OWNER SAVED BRO"
-    end
     get :edit, id: @car.id
     assert_response :success
   end
 
-  test "should get delete" do
+  test "should delete and redirect to cars path" do
     cookies[:auth_token] = @user.auth_token
-    owner=Owner.new(car_id: @car.id, user_id: @user.id)
-    if !owner.save
-      puts "NO OWNER SAVED BRO"
-    end
-    get :delete, id: @car.id
-    assert_response :success
+    delete :delete, id: @car.id
+    assert_redirected_to cars_path
   end
 
 end

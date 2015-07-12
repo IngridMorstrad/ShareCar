@@ -12,7 +12,7 @@ ShareCar::Application.routes.draw do
   post "cars/new", to: "cars#create"
   resources :cars do
     member do
-      get "delete"
+      delete "delete"
     end
   end
   post "loans/new", to: "loans#create"
