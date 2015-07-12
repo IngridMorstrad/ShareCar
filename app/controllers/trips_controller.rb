@@ -14,7 +14,9 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    @cars = Car.all
+    #@cars is a list of all the cars that current_user owns
+    @cars = Owner.where(user_id: current_user.id).collect{ |o| [Car.find(o.car_id).human_name, o.car_id] }
+    @url = trips_new_url
   end
 
   def create
@@ -33,12 +35,16 @@ class TripsController < ApplicationController
 
   def edit
     @trip = Trip.find(params[:id])
+    #@cars is a list of all the cars that current_user owns which have atleast as many seats as passengers in @trip
+    @cars = Owner.where(user_id: current_user.id, car_id: Car.where('seats >= ?', Passenger.where(trip_id: @trip.id).count).pluck(:id)).collect{ |o| [Car.find(o.car_id).human_name, o.car_id] }
+    @url = trip_url
   end
 
   def update
-    @trip = Trip.find(params[:id])
-    if @trip.update_details
-      redirect_to details_trip_path(@trip)
+    trip = Trip.find(params[:id])
+    if trip.update_attributes(trip_params)
+      flash[:success] = "Trip updated successfully!"
+      redirect_to details_trip_path(trip)
     else
       flash[:danger] = "Something went wrong in updating trip details."
       redirect_to trips_path
