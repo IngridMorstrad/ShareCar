@@ -27,7 +27,7 @@
             <td><%= c.cost_per_mile %></td>
             <% if Trip.where(car_id: c.id).empty? %>
               <td>
-                <%= link_to "Edit", edit_car_path(id: c.id), class: "btn btn-info" %>
+                <%= link_to "Edit", edit_car_path(id: c.id), class: "btn btn-info", data: {no_turbolink: true} %>
                 <%= link_to "Delete", delete_car_path(id: c.id), method: "delete", class: "btn btn-danger" %>
               </td>
             <% end %>
