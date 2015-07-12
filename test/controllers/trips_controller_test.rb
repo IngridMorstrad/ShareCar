@@ -5,19 +5,11 @@ class TripsControllerTest < ActionController::TestCase
   def setup
     @user = users(:petr)
     @car = cars(:camry)
-    @trip=Trip.new(id:1,origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,total_trip_cost:195.0)
-    if !@trip.save
-      puts "TRIP NOT SAVED BRO"
-    end
-    @passenger=Passenger.new(trip_id:@trip.id,user_id:@user.id)
-    if !@passenger.save
-      puts "PASSENGER NOT SAVED BRO"
-    end
-    @owner=Owner.new(car_id:@car.id,user_id:@user.id)
-    if !@owner.save
-      puts "OWNER NOT SAVED BRO"
-    end
+    @trip=Trip.create(origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,completed:false)
+    @passenger=Passenger.create(trip_id:@trip.id,user_id:@user.id)
+    @owner=Owner.create(car_id:@car.id,user_id:@user.id)
   end
+
   test "should get index" do
     cookies[:auth_token] = @user.auth_token
     get :index

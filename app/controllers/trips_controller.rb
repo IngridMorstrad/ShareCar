@@ -21,8 +21,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-    base_cost = Car.find(@trip.car_id).cost_per_mile * @trip.distance
-    @trip.assign_attributes(:total_trip_cost => base_cost * 1.2, :new_passenger_cost => base_cost * 1.1/2, :completed => false)
+    @trip.assign_attributes(:completed => false)
     if @trip.save
       Passenger.create(user_id: current_user.id, trip_id: @trip.id)
       flash[:success] = "Successfully created trip!"
@@ -57,7 +56,7 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:id])
     #Now adding the record corresponding to (trip_id,user_id) to passengers table
     @passenger = Passenger.new(trip_id: @trip.id, user_id: current_user.id)
-    if @passenger.save and @trip.update_details
+    if @passenger.save and @trip.save
       flash[:success] = "You've successfully joined this trip"
       redirect_to details_trip_path(@trip)
     else
@@ -70,7 +69,7 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:id])
     #Now removing the record corresponding to (trip_id,user_id) from passengers table
     passenger = Passenger.where(trip_id: @trip.id, user_id: current_user.id).first
-    if passenger.destroy and @trip.update_details
+    if passenger.destroy and @trip.save
       flash[:success] = "You've successfully left this trip"
       redirect_to details_trip_path(@trip)
     else
