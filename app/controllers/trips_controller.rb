@@ -78,8 +78,16 @@ class TripsController < ApplicationController
     end
   end
 
-
   def delete
+  end
+
+  def destroy
+      @trip = Trip.find(params[:id])
+      @trip.destroy
+      respond_to do |format|
+          format.html { redirect_to :back }
+          format.json { head :no_content}
+      end
   end
 
   private

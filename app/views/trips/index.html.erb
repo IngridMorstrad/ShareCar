@@ -45,6 +45,8 @@
                   <% end %>
                   <!-- current user is an owner hence he can "complete" the trip whenever he chooses to -->
                   <%= link_to "Complete", complete_loans_path(trip_id: t.id), {class: "btn btn-success"} %>
+                  <!-- current user is an owner hence he can "delete" the trip whenever he chooses to -->
+                  <%= link_to "Cancel", trip_path(id: t.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
                 <!-- current user is not an owner on this trip so he can leave always -->
                 <% else %>
                   <%= link_to "Leave", decrement_path(id: t.id), {class: "btn btn-danger"} %>
