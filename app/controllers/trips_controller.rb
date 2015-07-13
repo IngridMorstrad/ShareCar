@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
-  before_action :is_passenger, only: [:decrement, :edit, :update, :delete]
-  before_action :is_owner, only: [:edit, :delete]
+  before_action :is_passenger, only: [:decrement, :edit, :update, :destroy]
+  before_action :is_owner, only: [:edit, :destroy]
 
   def index
     @trips = Trip.all
@@ -21,7 +21,6 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-    @trip.assign_attributes(:completed => false)
     if @trip.save
       Passenger.create(user_id: current_user.id, trip_id: @trip.id)
       flash[:success] = "Successfully created trip!"
@@ -84,10 +83,8 @@ class TripsController < ApplicationController
   def destroy
       @trip = Trip.find(params[:id])
       @trip.destroy
-      respond_to do |format|
-          format.html { redirect_to :back }
-          format.json { head :no_content}
-      end
+      flash[:info] = "Trip cancelled!"
+      redirect_to trips_path
   end
 
   private

@@ -30,7 +30,6 @@ ShareCar::Application.routes.draw do
   resources :trips do
     member do
       get "show", as: :details
-      get "delete"
     end
   end
   resources :password_resets

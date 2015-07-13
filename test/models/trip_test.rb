@@ -4,7 +4,7 @@ class TripTest < ActiveSupport::TestCase
 
   def setup
     @car = cars(:camry)
-    @trip=Trip.create(origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,completed:false)
+    @trip=Trip.create(origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0)
   end
 
   test "should be valid" do

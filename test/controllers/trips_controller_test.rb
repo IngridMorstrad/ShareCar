@@ -5,9 +5,10 @@ class TripsControllerTest < ActionController::TestCase
   def setup
     @user = users(:petr)
     @car = cars(:camry)
-    @trip=Trip.create(origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0,completed:false)
-    @passenger=Passenger.create(trip_id:@trip.id,user_id:@user.id)
     @owner=Owner.create(car_id:@car.id,user_id:@user.id)
+    @trip=Trip.create(origin:"A",destination:"B",car_id:@car.id,start_time:"9:00",end_time:"10:00",distance:200.0)
+    @passenger=Passenger.create(trip_id:@trip.id,user_id:@user.id)
+    
   end
 
   test "should get index" do
@@ -34,10 +35,10 @@ class TripsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get delete" do
+  test "should destroy trip" do
     cookies[:auth_token] = @user.auth_token
-    get :delete, id: @trip.id
-    assert_response :success
+    delete :destroy, id: @trip.id
+    assert_redirected_to trips_path
   end
 
 end
