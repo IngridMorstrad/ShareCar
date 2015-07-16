@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 
+gem 'figaro' # for local configuration settings that shouldn't be shared on GitHub
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
+
+gem "oauth-plugin"
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

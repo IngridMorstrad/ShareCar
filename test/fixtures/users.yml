@@ -8,3 +8,12 @@ petr:
   password_hash: <%= BCrypt::Engine.hash_secret("mypassword", salt) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   activated: true
+
+sam:
+  name: Sam Altman
+  email: sam@example.com
+  <% salt = BCrypt::Engine.generate_salt %>
+  password_salt: <%= salt %>
+  password_hash: <%= BCrypt::Engine.hash_secret("mypassword", salt) %>
+  auth_token: <%= SecureRandom.urlsafe_base64 %>
+  activated: true

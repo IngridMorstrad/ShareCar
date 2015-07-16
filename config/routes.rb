@@ -15,10 +15,11 @@ ShareCar::Application.routes.draw do
       delete "delete"
     end
   end
+  get "loans/splitwise_callback", to: "loans#splitwise_callback"
   post "loans/new", to: "loans#create"
   resources :loans do
     member do
-      get "delete"
+      delete "delete"
     end
     collection do
       get "create_multiple", as: :complete
@@ -74,7 +75,7 @@ ShareCar::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

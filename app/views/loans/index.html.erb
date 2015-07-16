@@ -1,18 +1,40 @@
-<h1>Loans#index</h1>
-<p>Find me in app/views/loans/index.html.erb</p>
-<% if @bgroup.count > 0 %>
-You owe
-<br>
+<div class="jumbotron">
+  <h1>Expenses</h1>
+</div>
+
+<% if @bgroup.present? %>
+  <div class="row-fluid">
+    <table class="table">
+      <thead>
+        <th>You owe</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </thead>
+      <% @bgroup.each do |k, v| %>
+        <tr>
+          <td><%= User.find(k).name %></td>
+          <td><%= v %></td>
+          <td><%= link_to "Settle", delete_loan_path(id: k), method: :delete, data: {confirm: 'Settle the debt?'}, class: "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 <% end %>
-<% @bgroup.each do |k,v| %>
-    <%= "#{User.find(k).name} $#{v}" %>
-    <br>
-<% end %>
-<% if @lgroup.count > 0 %>
-You lent
-<br>
-<% end %>
-<% @lgroup.each do |k,v| %>
-    <%= "#{User.find(k).name} $#{v}" %>
-    <br>
+
+<% if @lgroup.present? %>
+  <div class="row-fluid">
+    <table class="table">
+      <thead>
+        <th>You lent</th>
+        <th>Amount</th>
+      </thead>
+      <% @lgroup.each do |k, v| %>
+        <tr>
+          <td><%= User.find(k).name %></td>
+          <td><%= v %></td>
+          <td><%= link_to "Settle", delete_loan_path(id: k), method: :delete, data: {confirm: 'Settle the debt?'}, class: "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 <% end %>
