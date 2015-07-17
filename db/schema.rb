@@ -65,13 +65,12 @@ ActiveRecord::Schema.define(version: 20150708095343) do
     t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.time     "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "auth_token"
-    t.string   "password_reset_token"
-    t.datetime "password_reset_sent_at"
-    t.boolean  "activated",              default: false
-    t.datetime "activated_at"
   end
 
 end

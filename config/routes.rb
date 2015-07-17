@@ -4,6 +4,8 @@ ShareCar::Application.routes.draw do
   get "log_in", to: "sessions#new"
   post "log_in", to: "sessions#create"
   delete "log_out", to: "sessions#destroy"
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
   post "owners/new", to: "owners#create"
   resources :owners
   get "sign_up", to: "users#new"
