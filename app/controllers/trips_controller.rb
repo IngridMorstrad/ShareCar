@@ -26,8 +26,8 @@ class TripsController < ApplicationController
       flash[:success] = "Successfully created trip!"
       redirect_to trips_path
     else
-      flash.now[:danger] = "Something went wrong in creating the trip."
-      render 'new'
+      flash.now[:error] = "Something went wrong...."
+      render "new"
     end
   end
 
@@ -44,7 +44,7 @@ class TripsController < ApplicationController
       flash[:success] = "Trip updated successfully!"
       redirect_to details_trip_path(trip)
     else
-      flash[:danger] = "Something went wrong in updating trip details."
+      flash[:error] = "Something went wrong in updating trip details."
       redirect_to trips_path
     end
   end
@@ -59,7 +59,7 @@ class TripsController < ApplicationController
       flash[:success] = "You've successfully joined this trip"
       redirect_to details_trip_path(@trip)
     else
-      flash[:danger] = "Failed to add passenger to trip"
+      flash[:error] = "Failed to add passenger to trip"
       redirect_to trips_path
     end
   end
@@ -72,7 +72,7 @@ class TripsController < ApplicationController
       flash[:success] = "You've successfully left this trip"
       redirect_to details_trip_path(@trip)
     else
-      flash[:danger] = "Failed to remove passenger from trip"
+      flash[:error] = "Failed to remove passenger from trip"
       redirect_to trips_path
     end
   end
@@ -81,10 +81,10 @@ class TripsController < ApplicationController
   end
 
   def destroy
-      @trip = Trip.find(params[:id])
-      @trip.destroy
-      flash[:info] = "Trip cancelled!"
-      redirect_to trips_path
+    @trip = Trip.find(params[:id])
+    @trip.destroy
+    flash[:notice] = "Trip cancelled!"
+    redirect_to trips_path
   end
 
   private

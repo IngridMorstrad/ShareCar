@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ShareCar-Owners</title>
+<title>ShareCar</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= stylesheet_link_tag "navbar-fixed-top" %>
-  <%= stylesheet_link_tag "owners" %>
   <%= csrf_meta_tags %>
 </head>
 <body id="page-top">
   <div class="container">
-    <%= render 'layouts/navbar_fixed_top_logged_in' %>
+    <%= render 'layouts/navbar_fixed_top_sessions' %>
     <%= render 'layouts/flash_message' %>
     <%= yield %>
   </div>
@@ -20,6 +19,6 @@
           <p>Copyright &copy; ShareCar 2015</p>
       </div>
   </footer>
-  <%= javascript_include_tag "owners", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "devise/sessions", "data-turbolinks-track" => true %>
 </body>
 </html>

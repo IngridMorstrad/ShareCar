@@ -9,56 +9,8 @@
 </head>
 <body id="page-top">
   <div class="container">
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand page-scroll" href="#page-top">
-            <i class="fa fa-car"></i>  <span class="light">ShareCar</span>
-          </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><strong><span class="navbar-text"><%= timepiece Time.zone.name %> <%= Time.zone.to_s %></span></strong></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><strong><span class="navbar-text"><%= current_user.name %></span></strong></li>
-            <li><%= link_to "Home", trips_path, data:{no_turbolink: true} %></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Trips</a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Add Trip", new_trip_path, data:{no_turbolink: true} %></li>
-                <li><%= link_to "View/Modify Trip", trips_path, data:{no_turbolink: true} %></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cars</a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Add Car", new_car_path, data:{no_turbolink: true} %></li>
-                <li><%= link_to "View/Modify Car", cars_path, data:{no_turbolink: true} %></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Owners</a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Add Owner", new_owner_path, data:{no_turbolink: true} %></li>
-              </ul>
-            </li>
-            <li><%= link_to "Loans", loans_path, data:{no_turbolink: true} %></li>
-            <li><%= link_to "Log out", log_out_path, method: "delete", data:{no_turbolink: true} %></li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container -->
-    </div>
-    <% flash.each do |key, value| -%>
-      <div class="alert alert-<%= key %> alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <%= value %>
-      </div>
-    <% end -%>
+    <%= render 'layouts/navbar_fixed_top_logged_in' %>
+    <%= render 'layouts/flash_message' %>
     <%= yield %>
   </div>
   <!-- Footer -->

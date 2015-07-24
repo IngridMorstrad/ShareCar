@@ -1,9 +1,0 @@
-Welcome to ShareCar, <%= @user.name %>
-===============================================
- 
-You have successfully signed up to ShareCar,
-your username is: <%= @user.email %>.
- 
-To activate your account, just follow this link: <%= edit_account_activation_url(@user.auth_token, email: @user.email) %>.
- 
-Thanks for joining and have a great day!

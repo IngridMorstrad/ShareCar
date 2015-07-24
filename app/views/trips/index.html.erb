@@ -14,49 +14,9 @@
       <th> Distance </th>
     </thead>
     <tbody> 
-      <% @trips.each do |t| %>
-        <% if not t.completed %>
-          <tr>
-            <td> 
-              <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                <span class="glyphicon glyphicon-ok"></span>
-              <% end %>
-            </td>
-            <td><%= t.origin %></td>
-            <td><%= t.destination %></td>
-            <td><%= t.start_time.to_formatted_s(:short) %></td>
-            <td><%= t.end_time.to_formatted_s(:short) %></td>
-            <td><%= t.distance %></td>
-            <td>
-              <%= link_to "Details", details_trip_path(id: t.id), {class: "btn btn-info"} %>
-              <!-- if the current user is a passenger on this trip -->
-              <% if Passenger.where(trip_id: t.id, user_id: current_user.id).present? %>
-                <!-- if the current user is an owner on this trip -->
-                <% if Owner.where(user_id: current_user.id, car_id: t.car_id).exists? %>
-                  <!-- owner has the ability to edit the trip -->
-                  <%= link_to "Edit", edit_trip_path(id: t.id), {class: "btn btn-warning", data: {no_turbolink: true}} %>
-                  <!-- if the current user is NOT the last owner on this trip -->
-                  <% if Owner.where(car_id: t.car_id, user_id: Passenger.where(trip_id: t.id).pluck(:user_id)).count > 1 %>
-                    <%= link_to "Leave", decrement_path(id: t.id), {class: "btn btn-danger"} %>
-                  <% end %>
-                  <!-- current user is an owner hence he can "complete" the trip whenever he chooses to -->
-                  <%= link_to "Complete", complete_loans_path(trip_id: t.id), {class: "btn btn-success"} %>
-                  <!-- current user is an owner hence he can "delete" the trip whenever he chooses to -->
-                  <%= link_to "Cancel", trip_path(id: t.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
-                <% else %>
-                  <!-- current user is not an owner on this trip so he can leave always -->
-                  <%= link_to "Leave", decrement_path(id: t.id), {class: "btn btn-danger"} %>
-                <% end %>
-              <% else %>
-                <!-- if current user is not a passenger on the trip and the trip still has seats remaining -->
-                <% if Passenger.where(trip_id: t.id).count < Car.find(t.car_id).seats %>
-                  <%= link_to "Join", increment_path(id: t.id), {class: "btn btn-primary"} %>
-                <% else %>
-                  <button class="btn btn-primary disabled"><i class="glyphicon glyphicon-lock"></i>Join</button>
-                <% end %>
-              <% end %>
-            </td>
-          </tr>
+      <% @trips.each do |trip| %>
+        <% if not trip.completed %>
+          <%= render :partial => 'trips/trip_list_row', :locals => {:trip => trip}  %>
         <% end %>
       <% end %>
       <span class="glyphicon glyphicon-lock"></span> Trip is full.<br>

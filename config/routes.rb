@@ -1,16 +1,8 @@
 ShareCar::Application.routes.draw do
-  root 'main#index'
-  get "main/index", as: :welcome
-  get "log_in", to: "sessions#new"
-  post "log_in", to: "sessions#create"
-  delete "log_out", to: "sessions#destroy"
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  root to: 'main#index'
   post "owners/new", to: "owners#create"
   resources :owners
-  get "sign_up", to: "users#new"
-  post "sign_up", to: "users#create"
-  resources :users
   post "cars/new", to: "cars#create"
   resources :cars do
     member do
@@ -35,8 +27,6 @@ ShareCar::Application.routes.draw do
       get "show", as: :details
     end
   end
-  resources :password_resets
-  resources :account_activations, only: [:edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

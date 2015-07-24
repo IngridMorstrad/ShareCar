@@ -5,8 +5,6 @@ gem 'figaro' # for local configuration settings that shouldn't be shared on GitH
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-gem "oauth-plugin"
-
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
@@ -44,8 +42,6 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'timepiece'
 
-gem 'omniauth-facebook'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -53,6 +49,10 @@ end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.5', :require => "bcrypt"
+
+gem 'devise'
+
+gem 'omniauth-facebook'
 
 group :development do
 	gem "better_errors"

@@ -1,53 +1,51 @@
 <div class="row-fluid">
   <div class="span4 well">
-    <div class="form">
-      <%= form_for (@trip), url: @url do |f| %>
-        <% if @trip.errors.any? %>
-          <div id="error_explanation" class="alert alert-danger alert-block">
-            <h4><%= pluralize(@trip.errors.count, "error") %> occurred:</h4>
-            <ul>
-              <% @trip.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <div class="form-group">
-          <%= f.label :distance %><br>
-          <%= f.number_field :distance, step:0.01, min: 0.01 %>
+    <%= form_for @trip, url: @url, class: "form" do |f| %>
+      <% if @trip.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger alert-block">
+          <h4><%= pluralize(@trip.errors.count, "error") %> occurred:</h4>
+          <ul>
+            <% @trip.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
         </div>
-
-        <div class="form-group">
-          <%= f.label :car_id %><br>
-          <%= f.select(:car_id, @cars) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :origin %><br>
-          <%= f.text_field :origin %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :destination %><br>
-          <%= f.text_field :destination %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :start_time %><br>
-          <%= f.datetime_select :start_time %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :end_time %><br>
-          <%= f.datetime_select :end_time %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit options={class: "btn btn-default"} %>
-        </div>
-
       <% end %>
-    </div>
+
+      <div class="form-group">
+        <%= f.label :distance %><br>
+        <%= f.number_field :distance, step:0.01, min: 0.01 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :car_id %><br>
+        <%= f.select(:car_id, @cars) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :origin %><br>
+        <%= f.text_field :origin %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :destination %><br>
+        <%= f.text_field :destination %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :start_time %><br>
+        <%= f.datetime_select :start_time %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :end_time %><br>
+        <%= f.datetime_select :end_time %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit class: "btn btn-default" %>
+      </div>
+
+    <% end %>
   </div>
 </div>
