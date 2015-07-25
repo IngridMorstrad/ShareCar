@@ -58,6 +58,8 @@ group :production do
     gem 'mysql'
 end
 
+gem 'tzinfo-data'
+
 gem 'thin'
 # Use unicorn as the app server
 # gem 'unicorn'
