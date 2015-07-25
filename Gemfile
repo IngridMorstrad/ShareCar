@@ -58,7 +58,8 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 group :production do
-    gem 'mysql'
+	gem 'rails_12factor'
+    #gem 'mysql'
 end
 
 gem 'tzinfo-data'
