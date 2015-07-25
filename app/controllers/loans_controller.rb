@@ -56,7 +56,7 @@ class LoansController < ApplicationController
     user = User.find(params[:id])
     Loan.destroy_all(borrower_id: current_user.id, lender_id: user.id)
     Loan.destroy_all(borrower_id: user.id, lender_id: current_user.id)
-    flash[:info] = "Transaction completed."
+    flash[:notice] = "Transaction completed."
     redirect_to loans_path
   end
 

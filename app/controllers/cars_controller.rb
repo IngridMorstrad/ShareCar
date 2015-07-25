@@ -17,11 +17,11 @@ class CarsController < ApplicationController
       if @owner.save
         redirect_to cars_path
       else
-        flash.now[:danger] = "Error in saving owner!"
+        flash.now[:alert] = "Error in saving owner!"
         render 'new'
       end
     else
-      flash.now[:danger] = "Error in saving car!"
+      flash.now[:alert] = "Error in saving car!"
       render 'new'
     end
   end
@@ -36,7 +36,7 @@ class CarsController < ApplicationController
     if car.update_attributes(car_params)
       flash[:success] = "Modified the details!"
     else
-      flash[:danger] = "Something went wrong in updating your car's details."
+      flash[:alert] = "Something went wrong in updating your car's details."
     end
     redirect_to cars_path
   end
@@ -44,7 +44,7 @@ class CarsController < ApplicationController
   def delete
     car = Car.where(id: params[:id]).first
     car.destroy
-    flash[:info] = "Car and all its owners forgotten."
+    flash[:notice] = "Car and all its owners forgotten."
     redirect_to cars_path
   end
 
@@ -55,7 +55,7 @@ class CarsController < ApplicationController
 
   def owns_car
     unless Owner.where(car_id: params[:id], user_id: current_user.id).present?
-      flash[:danger] = "You don't own such a car!"
+      flash[:alert] = "You don't own such a car!"
       redirect_to trips_path
     end
   end

@@ -94,14 +94,14 @@ class TripsController < ApplicationController
 
   def is_passenger
     unless Passenger.where(trip_id: params[:id], user_id: current_user.id).present?
-      flash[:warning] = "You aren't on that trip"
+      flash[:error] = "You aren't on that trip"
       redirect_to trips_path
     end
   end
 
   def is_owner
     unless Owner.where(car_id: Trip.find(params[:id]).car_id, user_id: current_user.id).present?
-      flash[:warning] = "You don't own that trip"
+      flash[:error] = "You don't own that trip"
       redirect_to trips_path
     end
   end
