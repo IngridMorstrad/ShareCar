@@ -59,7 +59,7 @@ gem 'omniauth-facebook'
 
 group :production do
 	gem 'rails_12factor'
-    #gem 'mysql'
+    gem 'pg'
 end
 
 gem 'tzinfo-data'
