@@ -166,24 +166,24 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  bcrypt-ruby (~> 3.1.5)
-  bootstrap-sass (~> 3.3.4)
-  coffee-rails (~> 4.0.0)
-  coffee-script-source (= 1.8.0)
+  bcrypt-ruby
+  bootstrap-sass
+  coffee-rails
+  coffee-script-source
   devise
   figaro
   font-awesome-rails
-  jbuilder (~> 1.2)
+  jbuilder
   jquery-easing-rails
   jquery-rails
   jquery-turbolinks
   mysql
   omniauth-facebook
-  rails (= 4.0.0)
-  sass-rails (~> 4.0.0)
+  rails
+  sass-rails
   sdoc
   sqlite3
   thin
   timepiece
   turbolinks
-  uglifier (>= 1.3.0)
+  uglifier

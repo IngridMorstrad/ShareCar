@@ -3,21 +3,21 @@ source 'https://rubygems.org'
 gem 'figaro' # for local configuration settings that shouldn't be shared on GitHub
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
-gem 'coffee-script-source', '1.8.0'
+gem 'coffee-script-source'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer'
@@ -30,7 +30,7 @@ gem 'jquery-turbolinks'
 gem 'jquery-easing-rails'
 
 # Use bootstrap-sass for design
-gem 'bootstrap-sass', '~> 3.3.4'
+gem 'bootstrap-sass'
 
 gem 'font-awesome-rails'
 
@@ -38,7 +38,7 @@ gem 'font-awesome-rails'
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder'
 
 gem 'timepiece'
 
@@ -48,7 +48,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.5', :require => "bcrypt"
+gem 'bcrypt-ruby', :require => "bcrypt"
 
 gem 'devise'
 
