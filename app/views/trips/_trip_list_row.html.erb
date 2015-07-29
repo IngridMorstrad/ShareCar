@@ -10,7 +10,7 @@
   <td><%= trip.end_time.to_formatted_s(:short) %></td>
   <td><%= trip.distance %></td>
   <td>
-    <%= link_to "Details", details_trip_path(id: trip.id), class: "btn btn-info" %>
+    <%= link_to "Details", details_trip_path(id: trip.id), class: "btn btn-info", data: {no_turbolink: true} %>
     <!-- if the current user is a passenger on this trip -->
     <% if Passenger.where(trip_id: trip.id, user_id: current_user.id).present? %>
       <!-- if the current user is an owner on this trip -->
@@ -22,7 +22,7 @@
           <%= link_to "Leave", decrement_path(id: trip.id), class: "btn btn-danger" %>
         <% end %>
         <!-- current user is an owner hence he can "complete" the trip whenever he chooses to -->
-        <%= link_to "Complete", complete_loans_path(trip_id: trip.id), class: "btn btn-success" %>
+        <%= link_to "Complete", complete_loans_path(trip_id: trip.id), class: "btn btn-success", data: {no_turbolink: true} %>
         <!-- current user is an owner hence he can "delete" the trip whenever he chooses to -->
         <%= link_to "Cancel", trip_path(id: trip.id), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
       <% else %>
