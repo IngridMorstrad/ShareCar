@@ -19,7 +19,7 @@ This trip is expected to cost <%= number_to_currency(@trip.total_trip_cost/@pass
 Passengers on this trip are:
 <% @passengers.each do |passenger| %>
     <br>
-    <%= User.find(passenger.id).name %>
+    <%= User.find(passenger.user_id).name %>
 <% end %>
 <br>
 <b>Note:</b> Price is tentative and may change as people join/leave the trip.
