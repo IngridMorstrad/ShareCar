@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724065741) do
+ActiveRecord::Schema.define(version: 20150719124157) do
 
-  create_table "cars", force: true do |t|
+  create_table "cars", force: :cascade do |t|
     t.string   "make"
     t.string   "model"
     t.integer  "year"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150724065741) do
     t.datetime "updated_at"
   end
 
-  create_table "loans", force: true do |t|
+  create_table "loans", force: :cascade do |t|
     t.integer  "borrower_id"
     t.integer  "lender_id"
     t.integer  "trip_id"
@@ -32,21 +32,21 @@ ActiveRecord::Schema.define(version: 20150724065741) do
     t.datetime "updated_at"
   end
 
-  create_table "owners", force: true do |t|
+  create_table "owners", force: :cascade do |t|
     t.integer  "car_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "passengers", force: true do |t|
+  create_table "passengers", force: :cascade do |t|
     t.integer  "trip_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "trips", force: true do |t|
+  create_table "trips", force: :cascade do |t|
     t.string   "origin"
     t.string   "destination"
     t.integer  "car_id"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20150724065741) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
