@@ -9,7 +9,7 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find(params[:id])
     @car = Car.find(@trip.car_id)
-    @num_passengers = Passenger.where(trip_id: @trip.id).count
+    @passengers = Passenger.where(trip_id: @trip.id)
   end
 
   def new
