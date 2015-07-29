@@ -1,10 +1,10 @@
 class LoansController < ApplicationController
 
   def index
-    @loaned = Loan.where(borrower_id: current_user.id)
-    @borrowed = Loan.where(lender_id: current_user.id)
-    @lgroup = @loaned.group(:lender_id).sum(:amount)
-    @bgroup = @borrowed.group(:borrower_id).sum(:amount)
+    @borrowed = Loan.where(borrower_id: current_user.id)
+    @loaned = Loan.where(lender_id: current_user.id)
+    @bgroup = @borrowed.group(:lender_id).sum(:amount)
+    @lgroup = @loaned.group(:borrower_id).sum(:amount)
     @bgroup.each do |k,v|
         if @lgroup.has_key? k
             if v > @lgroup[k]
