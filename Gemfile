@@ -6,9 +6,8 @@ gem 'figaro' # for local configuration settings that shouldn't be shared on GitH
 gem 'rails'
 
 # Use sqlite3 as the database for Active Record
-
 group :development, :test do
-	gem 'sqlite3'
+  gem 'sqlite3', '1.3.11'
 end
 
 # Use SCSS for stylesheets
