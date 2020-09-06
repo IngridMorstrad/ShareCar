@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby "> 2.3.0"
 gem 'figaro' # for local configuration settings that shouldn't be shared on GitHub
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
