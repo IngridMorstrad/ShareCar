@@ -12,7 +12,7 @@ group :development, :test do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '~> 5'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
