@@ -1,5 +1,5 @@
 class Trip < ActiveRecord::Base
-    has_one :car
+    belongs_to :car
     has_many :passenger, dependent: :delete_all
     validates :distance, presence: true, numericality: {greater_than: 0}
     validates :origin, :destination, :car_id, :start_time, :end_time, presence: true
