@@ -17,11 +17,11 @@ class CarsController < ApplicationController
       if @owner.save
         redirect_to cars_path
       else
-        flash.now[:alert] = "Error in saving owner!"
+        flash.now[:alert] = "Could not assign car ownership. Please try again."
         render 'new'
       end
     else
-      flash.now[:alert] = "Error in saving car!"
+      flash.now[:alert] = "Could not save car. Please check the errors below."
       render 'new'
     end
   end
@@ -36,7 +36,7 @@ class CarsController < ApplicationController
     if car.update_attributes(car_params)
       flash[:success] = "Modified the details!"
     else
-      flash[:alert] = "Something went wrong in updating your car's details."
+      flash[:alert] = "Could not update car details. Please check the details and try again."
     end
     redirect_to cars_path
   end

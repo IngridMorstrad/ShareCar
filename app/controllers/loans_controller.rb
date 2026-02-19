@@ -23,6 +23,7 @@ class LoansController < ApplicationController
     end
     @bgroup.delete_if { |k, v| v == 0 }
     @lgroup.delete_if { |k, v| v == 0 }
+    @loan_history = Loan.where("borrower_id = ? OR lender_id = ?", current_user.id, current_user.id).order(created_at: :desc)
   end
 
   def show

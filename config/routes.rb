@@ -1,5 +1,5 @@
 ShareCar::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   root to: 'main#index'
   post "owners/new", to: "owners#create"
   resources :owners
@@ -25,6 +25,9 @@ ShareCar::Application.routes.draw do
   resources :trips do
     member do
       get "show", as: :details
+    end
+    collection do
+      post "join_multiple"
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

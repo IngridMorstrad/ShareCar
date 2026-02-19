@@ -3,24 +3,30 @@
   <p>Travel to any place of your choice.</p>
 </div>
 
-<div class="row-fluid">
-  <table class="table">
-    <thead>
-      <th>  </th>
-      <th> Origin </th>
-      <th> Destination </th>
-      <th> Start Time </th>
-      <th> End Time </th>
-      <th> Distance </th>
-    </thead>
-    <tbody> 
-      <% @trips.each do |trip| %>
-        <% if not trip.completed %>
-          <%= render :partial => 'trips/trip_list_row', :locals => {:trip => trip}  %>
+<%= form_tag(join_multiple_trips_path, method: :post) do %>
+  <div class="row-fluid">
+    <table class="table">
+      <thead>
+        <th>  </th>
+        <th> Origin </th>
+        <th> Destination </th>
+        <th> Start Time </th>
+        <th> End Time </th>
+        <th> Distance </th>
+        <th> Actions </th>
+      </thead>
+      <tbody>
+        <% @trips.each do |trip| %>
+          <% if not trip.completed %>
+            <%= render partial: 'trips/trip_list_row', locals: {trip: trip} %>
+          <% end %>
         <% end %>
-      <% end %>
-      <span class="glyphicon glyphicon-lock"></span> Trip is full.<br>
+      </tbody>
+    </table>
+    <p>
+      <span class="glyphicon glyphicon-lock"></span> Trip is full.
       <span class="glyphicon glyphicon-ok"></span> You're on this trip.
-    </tbody>
-  </table>
-</div>
+    </p>
+    <%= submit_tag "Join Selected Trips", class: "btn btn-primary", id: "join-multiple-btn" %>
+  </div>
+<% end %>

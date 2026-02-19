@@ -4,7 +4,10 @@ class Trip < ActiveRecord::Base
     validates :distance, presence: true, numericality: {greater_than: 0}
     validates :origin, :destination, :car_id, :start_time, :end_time, presence: true
     validate :start_must_be_before_end_time
-    before_save :update_costs, :round_distance, :default_values
+    validate :validate_total_trip_cost
+    before_validation :default_values
+    before_validation :round_distance, if: -> { distance.present? }
+    before_validation :update_costs, if: -> { car_id.present? && distance.present? && distance > 0 }
 
     private
 
@@ -43,5 +46,12 @@ class Trip < ActiveRecord::Base
     	return unless self.start_time and self.end_time
     	errors.add(:start_time, "must be before end time") unless
         	self.start_time < self.end_time
+    end
+
+    def validate_total_trip_cost
+        return unless total_trip_cost.present?
+        if total_trip_cost < 0
+            errors.add(:total_trip_cost, "must not be negative")
+        end
     end
 end

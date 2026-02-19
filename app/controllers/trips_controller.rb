@@ -26,7 +26,8 @@ class TripsController < ApplicationController
       flash[:success] = "Successfully created trip!"
       redirect_to trips_path
     else
-      flash.now[:error] = "Something went wrong...."
+      flash.now[:error] = "Could not create trip. Please check the errors below."
+      @cars = Owner.where(user_id: current_user.id).collect{ |o| [Car.find(o.car_id).human_name, o.car_id] }
       render "new"
     end
   end
@@ -44,7 +45,7 @@ class TripsController < ApplicationController
       flash[:success] = "Trip updated successfully!"
       redirect_to details_trip_path(trip)
     else
-      flash[:error] = "Something went wrong in updating trip details."
+      flash[:error] = "Could not update trip. Please check the details and try again."
       redirect_to trips_path
     end
   end
@@ -75,6 +76,35 @@ class TripsController < ApplicationController
       flash[:error] = "Failed to remove passenger from trip"
       redirect_to trips_path
     end
+  end
+
+  def join_multiple
+    trip_ids = params[:trip_ids] || []
+    joined = []
+    failed = []
+    trip_ids.each do |trip_id|
+      trip = Trip.find_by(id: trip_id)
+      next unless trip
+      next if trip.completed
+      next if Passenger.where(trip_id: trip.id, user_id: current_user.id).present?
+      next if Passenger.where(trip_id: trip.id).count >= Car.find(trip.car_id).seats
+      passenger = Passenger.new(trip_id: trip.id, user_id: current_user.id)
+      if passenger.save && trip.save
+        joined << trip
+      else
+        failed << trip
+      end
+    end
+    if joined.any?
+      flash[:success] = "Successfully joined #{joined.length} trip(s)!"
+    end
+    if failed.any?
+      flash[:error] = "Failed to join #{failed.length} trip(s)."
+    end
+    if joined.empty? && failed.empty?
+      flash[:notice] = "No trips selected or all selected trips are unavailable."
+    end
+    redirect_to trips_path
   end
 
   def delete
