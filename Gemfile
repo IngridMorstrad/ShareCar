@@ -1,29 +1,25 @@
 source 'https://rubygems.org'
 
-ruby "> 2.3.0"
+ruby '>= 3.1.0'
+
 gem 'figaro' # for local configuration settings that shouldn't be shared on GitHub
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '~> 8.0'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-  gem 'sqlite3', '1.3.11'
+  gem 'sqlite3', '~> 2.1'
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5'
+gem 'sassc-rails'
 
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
-
-gem 'coffee-script-source'
+# Use Terser as compressor for JavaScript assets
+gem 'terser'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer'
+gem 'coffee-rails', '~> 5.0'
+gem 'coffee-script-source'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -33,15 +29,15 @@ gem 'jquery-turbolinks'
 gem 'jquery-easing-rails'
 
 # Use bootstrap-sass for design
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.4'
 
 gem 'font-awesome-rails'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# Turbolinks makes following links in your web application faster
+gem 'turbolinks', '~> 5'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+# Build JSON APIs with ease
+gem 'jbuilder', '~> 2.7'
 
 gem 'timepiece'
 
@@ -51,25 +47,20 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.5', :require => "bcrypt"
+gem 'bcrypt', '~> 3.1'
 
-gem 'devise'
+gem 'devise', '~> 4.9'
 
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '~> 10.0'
+gem 'omniauth-rails_csrf_protection'
 
 group :production do
-	gem 'rails_12factor'
-    gem 'pg'
+  gem 'pg', '~> 1.5'
 end
 
 gem 'tzinfo-data'
 
-gem 'thin'
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'puma', '~> 6.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+# Sprockets for asset pipeline
+gem 'sprockets-rails'
