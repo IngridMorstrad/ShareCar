@@ -3,38 +3,88 @@
 </div>
 
 <% if @bgroup.present? %>
+  <h3>Amounts You Owe</h3>
   <div class="row-fluid">
     <table class="table">
       <thead>
         <th>You owe</th>
         <th>Amount</th>
-        <th>Status</th>
+        <th>Action</th>
       </thead>
-      <% @bgroup.each do |k, v| %>
-        <tr>
-          <td><%= User.find(k).name %></td>
-          <td><%= v %></td>
-          <td><%= link_to "Settle", delete_loan_path(id: k), method: :delete, data: {confirm: 'Settle the debt?'}, class: "btn btn-primary" %></td>
-        </tr>
-      <% end %>
+      <tbody>
+        <% @bgroup.each do |k, v| %>
+          <tr>
+            <td><%= User.find(k).name %></td>
+            <td><%= number_to_currency(v) %></td>
+            <td><%= link_to "Settle", delete_loan_path(id: k), method: :delete, data: {confirm: 'Settle the debt?'}, class: "btn btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   </div>
 <% end %>
 
 <% if @lgroup.present? %>
+  <h3>Amounts Owed to You</h3>
   <div class="row-fluid">
     <table class="table">
       <thead>
-        <th>You lent</th>
+        <th>They owe you</th>
         <th>Amount</th>
+        <th>Action</th>
       </thead>
-      <% @lgroup.each do |k, v| %>
-        <tr>
-          <td><%= User.find(k).name %></td>
-          <td><%= v %></td>
-          <td><%= link_to "Settle", delete_loan_path(id: k), method: :delete, data: {confirm: 'Settle the debt?'}, class: "btn btn-primary" %></td>
-        </tr>
-      <% end %>
+      <tbody>
+        <% @lgroup.each do |k, v| %>
+          <tr>
+            <td><%= User.find(k).name %></td>
+            <td><%= number_to_currency(v) %></td>
+            <td><%= link_to "Settle", delete_loan_path(id: k), method: :delete, data: {confirm: 'Settle the debt?'}, class: "btn btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
+  </div>
+<% end %>
+
+<% if @bgroup.blank? && @lgroup.blank? %>
+  <div class="well">
+    <p>No outstanding balances. You're all settled up!</p>
+  </div>
+<% end %>
+
+<hr>
+
+<h3>Financial History</h3>
+<% if @loan_history.present? %>
+  <div class="row-fluid">
+    <table class="table table-striped">
+      <thead>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Person</th>
+        <th>Amount</th>
+        <th>Trip</th>
+      </thead>
+      <tbody>
+        <% @loan_history.each do |loan| %>
+          <tr>
+            <td><%= loan.created_at.to_formatted_s(:short) %></td>
+            <% if loan.borrower_id == current_user.id %>
+              <td><span class="label label-danger">Borrowed</span></td>
+              <td><%= loan.lender.name %></td>
+            <% else %>
+              <td><span class="label label-success">Lent</span></td>
+              <td><%= loan.borrower.name %></td>
+            <% end %>
+            <td><%= number_to_currency(loan.amount) %></td>
+            <td><%= link_to "Trip ##{loan.trip_id}", details_trip_path(id: loan.trip_id), data: {no_turbolink: true} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="well">
+    <p>No financial history yet. Complete a trip to see transactions here.</p>
   </div>
 <% end %>
