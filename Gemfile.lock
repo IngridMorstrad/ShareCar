@@ -168,7 +168,7 @@ GEM
       bigdecimal (>= 3.1, < 5)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.2)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -321,7 +321,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     thor (1.5.0)
     tilt (2.7.0)
-    timeout (0.6.0)
+    timeout (0.6.1)
     timepiece (0.4.1)
       jquery-rails (>= 3.0.0)
     tsort (0.2.0)
