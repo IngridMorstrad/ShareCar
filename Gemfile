@@ -49,7 +49,7 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1'
 
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 
 gem 'omniauth-facebook', '~> 10.0'
 gem 'omniauth-rails_csrf_protection'
