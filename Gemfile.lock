@@ -148,7 +148,7 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (2.18.1)
-    jwt (3.1.2)
+    jwt (3.2.0)
       base64
     logger (1.7.0)
     loofah (2.25.0)
