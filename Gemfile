@@ -60,7 +60,7 @@ end
 
 gem 'tzinfo-data'
 
-gem 'puma', '~> 6.0'
+gem 'puma', '~> 7.2'
 
 # Sprockets for asset pipeline
 gem 'sprockets-rails'
